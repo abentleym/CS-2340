@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.sean.ratapp.R;
+import com.example.sean.ratapp.model.User;
+
+import java.util.HashMap;
 
 /**
  * Created by jfahe on 9/22/2017.
@@ -20,6 +23,14 @@ public class LogginginActivity extends AppCompatActivity {
     private Button logIn;
     private Button error;
     private int x = 10;
+    private User _user = new User(); // use default values for username and password
+
+    // hash map of users where the key is the username of the user and the value is the user's
+    // account information. Due to this, each username must be unique, but passwords do not.
+    // The initial capacity is 10 users. The user account info is stored in the mobile device's
+    // cache until a functioning database is available.
+    // TODO: move to registration class when available
+    private HashMap<String, User> _user_hash_map = new HashMap<>(10);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +45,7 @@ public class LogginginActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (x == 10) {
+                if (_user.logIn("user", "pass")) {
                     startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
                 } else {
                     error.setVisibility(View.VISIBLE);

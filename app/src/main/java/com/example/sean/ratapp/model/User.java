@@ -12,7 +12,12 @@ public class User {
     public User(String name, String password) {
         _userName = name;
         _userPassword = password;
-        _loggedIn = true; //sets logged in for true on registration
+        _loggedIn = false; // false upon app start up
+    }
+
+    // user has not logged in yet
+    public User() {
+        this("user", "pass");
     }
 
     public Boolean logIn(String name, String password) {
