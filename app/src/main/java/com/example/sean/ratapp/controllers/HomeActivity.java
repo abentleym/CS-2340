@@ -21,7 +21,7 @@ import com.example.sean.ratapp.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private Button logOut;
+    private Button logOutButton;
     private User _user;
 
     @Override
@@ -31,6 +31,14 @@ public class HomeActivity extends AppCompatActivity {
         Intent i = getIntent();
         _user = (User) i.getSerializableExtra("user");
 
-        logOut = (Button) findViewById(R.id.logOut);
+        logOutButton = (Button) findViewById(R.id.logOut);
+
+
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            }
+        });
     }
 }
