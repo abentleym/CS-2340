@@ -22,7 +22,6 @@ public class LogginginActivity extends AppCompatActivity {
     private EditText password;
     private Button logIn;
     private Button error;
-    private int x = 10;
     private User _user = new User(); // use default values for username and password
 
     // hash map of users where the key is the username of the user and the value is the user's
@@ -41,11 +40,14 @@ public class LogginginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         logIn = (Button) findViewById(R.id.enter_login);
         error = (Button) findViewById(R.id.error);
+        Intent i = new Intent(this, HomeActivity.class);
+        i.putExtra("user", _user);
+
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (_user.logIn("user", "pass")) {
+                if (_user.logIn(userName.getText().toString(), password.getText().toString())) {
                     startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
                 } else {
                     error.setVisibility(View.VISIBLE);

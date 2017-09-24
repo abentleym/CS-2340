@@ -4,6 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.content.Intent;
+import com.example.sean.ratapp.model.User;
+import android.view.View;
+import com.example.sean.ratapp.controllers.LoginActivity;
+
+
+
+
 
 import com.example.sean.ratapp.R;
 
@@ -12,9 +20,17 @@ import com.example.sean.ratapp.R;
  */
 
 public class HomeActivity extends AppCompatActivity {
+
+    private Button logOut;
+    private User _user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Intent i = getIntent();
+        _user = (User) i.getSerializableExtra("user");
+
+        logOut = (Button) findViewById(R.id.logOut);
     }
 }

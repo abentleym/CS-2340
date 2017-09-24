@@ -1,10 +1,16 @@
 package com.example.sean.ratapp.model;
 
+import android.os.Parcelable;
+import android.widget.SectionIndexer;
+
+import java.io.Serializable;
+
+
 /**
  * Created by jfahe on 9/22/2017.
  */
 
-public class User {
+public class User implements Serializable{
     private String _userName; //string of user id
     private String _userPassword; //string of user password
     private Boolean _loggedIn; //used to tell if user is logged in
