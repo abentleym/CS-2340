@@ -13,6 +13,7 @@ public class LoginActivity extends AppCompatActivity {
     Button logInButton;
     Button registerButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,9 @@ public class LoginActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, LogginginActivity.class));
+                finish();
+                Intent loginattempt = new Intent(LoginActivity.this, LogginginActivity.class);
+                startActivity(loginattempt);
             }
         });
     }

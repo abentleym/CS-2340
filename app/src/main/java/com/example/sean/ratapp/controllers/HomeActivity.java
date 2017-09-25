@@ -20,11 +20,9 @@ import com.example.sean.ratapp.R;
  */
 
 public class HomeActivity extends AppCompatActivity {
-
     private Button logOutButton;
     private User _user;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -37,7 +35,9 @@ public class HomeActivity extends AppCompatActivity {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                finish();
+                Intent logoutattempt = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(logoutattempt);
             }
         });
     }
