@@ -28,8 +28,8 @@ public class LogginginActivity extends AppCompatActivity {
     // account information. Due to this, each username must be unique, but passwords do not.
     // The initial capacity is 10 users. The user account info is stored in the mobile device's
     // cache until a functioning database is available.
-    // TODO: move to registration class when available
-    private HashMap<String, User> _user_hash_map = new HashMap<>(10);
+    // TODO: get reference to hashmap from registration activity
+    private HashMap<String, User> _user_hash_map;
 
     // Note: you can either create an instance of User from scratch using a constructor, or use the hashmap
     // to try and return an instance. If you do the latter, you may need to change the login
@@ -39,9 +39,6 @@ public class LogginginActivity extends AppCompatActivity {
     // username and password stored in a String, since they are used in multiple places in the code
     private String _user_name;
     private String _pass_word;
-
-    // TODO: When the registration class is available, add a reference to the instance of the
-    // hash map of users into this class
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +63,6 @@ public class LogginginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 _user_name = userName.getText().toString();
                 _pass_word = password.getText().toString();
-
-                // TODO: Move to registration class when available
-                // creates a new User when clicked and stores in hash map
-                _user = new User(_user_name, _pass_word);
-                _user_hash_map.put(_user_name, _user);
 
                 // if the user has registered and is in the hash map, check login information
                 // note: leave as is if you created an instance of user in this class using a
