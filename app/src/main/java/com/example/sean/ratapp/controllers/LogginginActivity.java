@@ -88,7 +88,7 @@ public class LogginginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                startActivity(new Intent(LogginginActivity.this, LoginActivity.class));
+                startActivity(new Intent(LogginginActivity.this, StartScreenActivity.class));
             }
         });
     }

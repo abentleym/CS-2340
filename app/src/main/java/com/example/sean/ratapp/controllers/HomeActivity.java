@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent logoutattempt = new Intent(HomeActivity.this, LoginActivity.class);
+                Intent logoutattempt = new Intent(HomeActivity.this, StartScreenActivity.class);
                 startActivity(logoutattempt);
             }
         });

@@ -8,7 +8,7 @@ import android.content.Intent;
 
 import com.example.sean.ratapp.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class StartScreenActivity extends AppCompatActivity {
 
     Button logInButton;
     Button registerButton;
@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_startscreen);
 
         logInButton = (Button) findViewById(R.id.loginButton);
         registerButton = (Button) findViewById(R.id.registerButton);
@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent loginattempt = new Intent(LoginActivity.this, LogginginActivity.class);
+                Intent loginattempt = new Intent(StartScreenActivity.this, LogginginActivity.class);
                 startActivity(loginattempt);
             }
         });
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick (View v) {
                 finish();
-                Intent registerAttempt = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent registerAttempt = new Intent(StartScreenActivity.this, RegisterActivity.class);
                 startActivity(registerAttempt);
             }
         });
