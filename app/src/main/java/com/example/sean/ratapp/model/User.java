@@ -35,6 +35,18 @@ public class User implements Serializable{
         }
     }
 
+    public void logIn() {
+        _loggedIn = true;
+    }
+
+    public String getUsername() {
+        return _userName;
+    }
+
+    public String getPassword() {
+        return _userPassword;
+    }
+
     public void logOut() {
         _loggedIn = false;
     }

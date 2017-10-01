@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.User;
+import com.example.sean.ratapp.model.UserManager;
 
 import java.util.HashMap;
 
@@ -29,7 +30,7 @@ public class LogginginActivity extends AppCompatActivity {
     // The initial capacity is 10 users. The user account info is stored in the mobile device's
     // cache until a functioning database is available.
     // TODO: get reference to hashmap from registration activity
-    private HashMap<String, User> _user_hash_map;
+    //private HashMap<String, User> _user_hash_map = new HashMap<String, User>();
 
     // Note: you can either create an instance of User from scratch using a constructor, or use the hashmap
     // to try and return an instance. If you do the latter, you may need to change the login
@@ -67,8 +68,7 @@ public class LogginginActivity extends AppCompatActivity {
                 // if the user has registered and is in the hash map, check login information
                 // note: leave as is if you created an instance of user in this class using a
                 // constructor. Change if you returned an instance from the hash map.
-                if (_user_hash_map.containsKey(_user_name) &&
-                        _user_hash_map.get(_user_name).logIn(_user_name, _pass_word)) {
+                if (UserManager.loginUser(_user_name, _pass_word)) {
                     finish();
                     startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
                 } else {
