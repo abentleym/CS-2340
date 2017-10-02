@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.example.sean.ratapp.R;
@@ -36,7 +37,6 @@ public class LogginginActivity extends AppCompatActivity {
     // to try and return an instance. If you do the latter, you may need to change the login
     // validation conditional statements below.
     // Also, see my note about the Extra used below
-    private User _user;
     // username and password stored in a String, since they are used in multiple places in the code
     private String _user_name;
     private String _pass_word;
@@ -48,23 +48,20 @@ public class LogginginActivity extends AppCompatActivity {
 
         userName = (EditText) findViewById(R.id.user_name);
         password = (EditText) findViewById(R.id.password);
+
         logIn = (Button) findViewById(R.id.enter_login);
         error = (Button) findViewById(R.id.error);
         back = (Button) findViewById(R.id.back);
-        Intent i = new Intent(this, HomeActivity.class);
 
         // Note: if this is not really needed, you could delete all instances of _user from this
         // class and use _user_hash_map.get(_user_name).logIn(_user_name, _pass_word)
         // to check if a user is logged in (like I already did below)
-        i.putExtra("user", _user);
-
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _user_name = userName.getText().toString();
                 _pass_word = password.getText().toString();
-
+                _user_name = userName.getText().toString();
                 // if the user has registered and is in the hash map, check login information
                 // note: leave as is if you created an instance of user in this class using a
                 // constructor. Change if you returned an instance from the hash map.

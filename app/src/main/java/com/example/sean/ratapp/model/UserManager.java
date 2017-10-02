@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class UserManager {
     private static HashMap<String, User> _user_hash_map = new HashMap<>(10);
 
+
     /**
      *
      * @param username the username a user has input
@@ -46,6 +47,15 @@ public class UserManager {
         return true;
     }
 
+    public static boolean addAdmin(String username, String password) {
+        if (_user_hash_map.containsKey(username)) {
+            return false;
+        }
+
+        _user_hash_map.put(username, new Admin(username, password));
+        return true;
+    }
+
     /**
      *
      * @param username the username of the user logging in
@@ -62,4 +72,7 @@ public class UserManager {
         }
     }
 
+    public static User getUser(String username) {
+        return _user_hash_map.get(username);
+    }
 }

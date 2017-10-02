@@ -6,9 +6,7 @@ import android.widget.Button;
 import android.content.Intent;
 import com.example.sean.ratapp.model.User;
 import android.view.View;
-
-
-
+import android.widget.TextView;
 
 
 import com.example.sean.ratapp.R;
@@ -20,6 +18,7 @@ import com.example.sean.ratapp.R;
 public class HomeActivity extends AppCompatActivity {
     private Button logOutButton;
     private User _user;
+    private TextView name;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +27,6 @@ public class HomeActivity extends AppCompatActivity {
         _user = (User) i.getSerializableExtra("user");
 
         logOutButton = (Button) findViewById(R.id.logOut);
-
 
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override

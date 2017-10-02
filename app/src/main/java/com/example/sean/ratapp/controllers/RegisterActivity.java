@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.example.sean.ratapp.R;
@@ -25,8 +26,11 @@ public class RegisterActivity extends AppCompatActivity {
     private Button _error;
     private String _user_name;
     private String _pass_word;
-    private User _user;
+    private CheckBox _admin;
     private Button _back;
+    private User _user;
+    private String _userName_text;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         _back = (Button) findViewById(R.id.cancel);
         _userName = (EditText) findViewById(R.id.userNameText);
         _password = (EditText) findViewById(R.id.passwordText);
+        _admin = (CheckBox) findViewById(R.id.admin);
 
         _register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,11 +50,20 @@ public class RegisterActivity extends AppCompatActivity {
                 _user_name = _userName.getText().toString();
                 _pass_word = _password.getText().toString();
 
-                if (UserManager.addUser(_user_name, _pass_word)) {
-                    finish();
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                if (_admin.isChecked()) {
+                    if (UserManager.addAdmin(_user_name, _pass_word)) {
+                        finish();
+                        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                    } else {
+                        _error.setVisibility(View.VISIBLE);
+                    }
                 } else {
-                    _error.setVisibility(View.VISIBLE);
+                    if (UserManager.addUser(_user_name, _pass_word)) {
+                        finish();
+                        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                    } else {
+                        _error.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
