@@ -26,6 +26,8 @@ public class RegisterActivity extends AppCompatActivity {
     private String _user_name;
     private String _pass_word;
     private User _user;
+    private Button _back;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         _register = (Button) findViewById(R.id.registerBtn);
         _error = (Button) findViewById(R.id.badRegistration);
+        _back = (Button) findViewById(R.id.cancel);
         _userName = (EditText) findViewById(R.id.userNameText);
         _password = (EditText) findViewById(R.id.passwordText);
 
@@ -55,6 +58,14 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 _error.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        _back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(RegisterActivity.this, StartScreenActivity.class));
             }
         });
 
