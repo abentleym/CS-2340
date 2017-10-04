@@ -66,8 +66,13 @@ public class LogginginActivity extends AppCompatActivity {
                 // note: leave as is if you created an instance of user in this class using a
                 // constructor. Change if you returned an instance from the hash map.
                 if (UserManager.loginUser(_user_name, _pass_word)) {
-                    finish();
-                    startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
+                    if (UserManager.getUser(_user_name).isAdmin()) {
+                        finish();
+                        startActivity(new Intent(LogginginActivity.this, AdminHomeActivity.class));
+                    } else {
+                        finish();
+                        startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
+                    }
                 } else {
                     error.setVisibility(View.VISIBLE);
                 }

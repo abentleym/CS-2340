@@ -54,4 +54,8 @@ public class User implements Serializable{
     public String toString() {
         return _userName;
     }
+
+    public boolean isAdmin() {
+        return false;
+    }
 }

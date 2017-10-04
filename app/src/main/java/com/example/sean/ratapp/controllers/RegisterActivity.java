@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (_admin.isChecked()) {
                     if (UserManager.addAdmin(_user_name, _pass_word)) {
                         finish();
-                        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                        startActivity(new Intent(RegisterActivity.this, AdminHomeActivity.class));
                     } else {
                         _error.setVisibility(View.VISIBLE);
                     }

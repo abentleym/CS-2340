@@ -26,4 +26,9 @@ public class Admin extends User {
     public String toString() {
         return "Admin " + _userName;
     }
+
+    @Override
+    public boolean isAdmin() {
+        return true;
+    }
 }
