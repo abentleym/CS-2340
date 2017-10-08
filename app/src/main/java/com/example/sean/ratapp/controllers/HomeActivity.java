@@ -17,6 +17,7 @@ import com.example.sean.ratapp.R;
 
 public class HomeActivity extends AppCompatActivity {
     private Button logOutButton;
+    private Button searchSighting;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         logOutButton = (Button) findViewById(R.id.logOut);
+        searchSighting = (Button) findViewById(R.id.searchSighting);
 
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +33,14 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
                 Intent logoutattempt = new Intent(HomeActivity.this, StartScreenActivity.class);
                 startActivity(logoutattempt);
+            }
+        });
+
+        searchSighting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent search = new Intent(HomeActivity.this, RatSightingList.class);
+                startActivity(search);
             }
         });
     }
