@@ -11,16 +11,16 @@ import java.util.List;
 public class Model {
     public static final Model INSTANCE = new Model();
 
-    private List<RatSighting> ratSighting;
+    private List<RatSighting> ratSightingList;
 
-    public void addItem(RatSighting rat) { ratSighting.add(rat); }
+    public void addItem(RatSighting ratSighting) { ratSightingList.add(ratSighting); }
 
     public List<RatSighting> getItems() {
-        return ratSighting;
+        return ratSightingList;
     }
 
     public RatSighting findSightingById(int id) {
-        for (RatSighting r : ratSighting) {
+        for (RatSighting r : ratSightingList) {
             if (r.getKey() == id) {
                 return r;
             }

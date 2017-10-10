@@ -50,4 +50,11 @@ public class RatSighting {
     public String getBorough() { return borough; }
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }
+
+    // toString method to return some info as a string to be displayed in each entry in the ListView
+    // that lists all rat sightings. Currently returns unique key of rat sighting.
+    @Override
+    public String toString() {
+        return String.valueOf(key);
+    }
 }

@@ -24,7 +24,14 @@ import java.util.List;
 
 public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
 
-    public RatSighting[] GetRatData(InputStream ins, int numEntriesToGet) {
+    private RatSighting[] ratData;
+    private String[] ratDataString;
+
+    // Loads rat sighting data from file and formats into various data structures to return later
+    // TODO: right now about three data structures are created from the data in the file, using up
+    // a lot of memory; limit the number of data structures created in this method so that memory
+    // isn't wasted.
+    public void LoadRatData(InputStream ins) {
 
         ArrayList<RatSighting> ratSightList = new ArrayList<RatSighting>();
         try {
@@ -32,7 +39,7 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
 
             String line;
             br.readLine(); //get rid of header line
-            while ((line = br.readLine()) != null && numEntriesToGet-- > 0) {
+            while ((line = br.readLine()) != null) {
                 String[] tokens = line.split(",");
 
                 ratSightList.add(new RatSighting(Integer.parseInt(tokens[0]), tokens[1], tokens[7],
@@ -44,13 +51,22 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
             Log.e("Tag", "error reading assets", e);
         }
 
-        RatSighting[] ratData = new RatSighting[ratSightList.size()];
+        ratData = new RatSighting[ratSightList.size()];
+        ratDataString = new String[ratSightList.size()];
+
         for (int i = 0; i < ratSightList.size(); i++) {
             ratData[i] = ratSightList.get(i);
+            ratDataString[i] = String.valueOf(ratSightList.get(i).getKey());
         }
+    }
 
+    // returns rat sightings with complete set of data
+    public RatSighting[] getRatDataArray() {
         return ratData;
     }
+
+    // returns rat sightings as a unique id only
+    public String[] getRatDataString() { return ratDataString; }
 
     @Override
     protected Long doInBackground(InputStream... params) {
