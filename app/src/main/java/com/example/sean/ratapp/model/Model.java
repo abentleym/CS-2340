@@ -21,7 +21,7 @@ public class Model {
 
     public RatSighting findSightingById(int id) {
         for (RatSighting r : ratSighting) {
-            if (r.getId() == id) {
+            if (r.getKey() == id) {
                 return r;
             }
         }
