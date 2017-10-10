@@ -31,7 +31,7 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
     // TODO: right now about three data structures are created from the data in the file, using up
     // a lot of memory; limit the number of data structures created in this method so that memory
     // isn't wasted.
-    public void LoadRatData(InputStream ins) {
+    public void LoadRatData(InputStream ins, int maxEntriesToRead) {
 
         ArrayList<RatSighting> ratSightList = new ArrayList<RatSighting>();
         try {
@@ -39,7 +39,7 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
 
             String line;
             br.readLine(); //get rid of header line
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null && maxEntriesToRead-- > 0) {
                 String[] tokens = line.split(",");
 
                 ratSightList.add(new RatSighting(Integer.parseInt(tokens[0]), tokens[1], tokens[7],

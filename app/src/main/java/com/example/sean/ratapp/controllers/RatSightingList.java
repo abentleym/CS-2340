@@ -33,7 +33,7 @@ public class RatSightingList extends AppCompatActivity {
                 "rat_sightings", "raw", getPackageName()));
 
         // load rat sighting data from file onto device memory
-        rdr.LoadRatData(ins);
+        rdr.LoadRatData(ins, 40);
 
         // create a list view to list rat sightings
         ListView listView = (ListView) findViewById(R.id.listOfRatSightings);
