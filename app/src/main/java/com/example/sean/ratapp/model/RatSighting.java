@@ -16,17 +16,6 @@ public class RatSighting {
     private  String createdDate;
     private String borough;
 
-    public RatSighting(String loc, int key, int zip, String address, String city, int longitude,
-                       int latitude, String date) {
-        this.locationType = loc;
-        this.key = key;
-        this.zip = zip;
-        this.address = address;
-        this.city = city;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.createdDate = date;
-    }
 
     public RatSighting(int key, String createdDate, String locationType, int zip,
                        String address, String city, String borough, double latitude, double longitude) {
@@ -55,6 +44,6 @@ public class RatSighting {
     // that lists all rat sightings. Currently returns unique key of rat sighting.
     @Override
     public String toString() {
-        return String.valueOf(key);
+        return String.valueOf(key) + " " + this.getCity();
     }
 }

@@ -56,7 +56,8 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
 
         for (int i = 0; i < ratSightList.size(); i++) {
             ratData[i] = ratSightList.get(i);
-            ratDataString[i] = String.valueOf(ratSightList.get(i).getKey());
+            ratDataString[i] = String.valueOf(ratSightList.get(i).getKey() +
+                    " " + ratSightList.get(i).getCity());
         }
     }
 
@@ -65,7 +66,7 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
         return ratData;
     }
 
-    // returns rat sightings as a unique id only
+    // returns rat sightings as a unique id and city
     public String[] getRatDataString() { return ratDataString; }
 
     @Override
