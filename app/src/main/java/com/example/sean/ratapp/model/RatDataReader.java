@@ -24,8 +24,8 @@ import java.util.List;
 
 public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
 
-    private RatSighting[] ratData;
-    private String[] ratDataString;
+    private static RatSighting[] ratData;
+    private static String[] ratDataString;
 
     // Loads rat sighting data from file and formats into various data structures to return later
     // TODO: right now about three data structures are created from the data in the file, using up

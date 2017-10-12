@@ -21,6 +21,7 @@
         <activity android:name=".controllers.RegisterActivity"></activity>
         <activity android:name=".controllers.AdminHomeActivity"></activity>
         <activity android:name=".controllers.RatSightingList"></activity>
+        <activity android:name=".controllers.RatSightingDetails"></activity>
     </application>
 
 </manifest>

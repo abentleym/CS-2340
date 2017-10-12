@@ -3,11 +3,13 @@ package com.example.sean.ratapp.controllers;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.content.Intent;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.RatDataReader;
 import com.example.sean.ratapp.model.RatSighting;
@@ -44,5 +46,17 @@ public class RatSightingList extends AppCompatActivity {
 
         // send data from adapter to list view to display
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                Intent search = new Intent(RatSightingList.this, RatSightingDetails.class);
+                RatSightingDetails.setSelectedsighting(position);
+                startActivity(search);
+
+            }
+            });
     }
+
 }
