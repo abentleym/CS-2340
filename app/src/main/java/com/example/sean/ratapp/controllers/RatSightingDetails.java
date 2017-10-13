@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 
 /**
@@ -21,8 +22,8 @@ class RatSightingDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ratsightingdetails);
         RatDataReader rdr = new RatDataReader();
-        RatSighting[] ratadata = rdr.getRatDataArray();
-        RatSighting selectedratsighting = ratadata[selectedsighting];
+        ArrayList<RatSighting> ratadata = rdr.getRatDataArray();
+        RatSighting selectedratsighting = ratadata.get(selectedsighting);
         TextView textview = (TextView)findViewById(R.id.ratsightingdetails);
         String ratInformation = new String();
         ratInformation += "Address : " + selectedratsighting.getAddress() + "\n";

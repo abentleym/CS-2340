@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.example.sean.ratapp.R;
-import com.example.sean.ratapp.model.User;
 import com.example.sean.ratapp.model.UserManager;
 
 import java.util.HashMap;

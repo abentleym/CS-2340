@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.content.Intent;
 
 import com.example.sean.ratapp.R;
+import com.example.sean.ratapp.model.RatDataReader;
+
+import java.io.InputStream;
 
 public class StartScreenActivity extends AppCompatActivity {
 
@@ -21,6 +24,17 @@ public class StartScreenActivity extends AppCompatActivity {
 
         logInButton = (Button) findViewById(R.id.loginButton);
         registerButton = (Button) findViewById(R.id.registerButton);
+
+        RatDataReader rdr = new RatDataReader();
+
+        if (rdr.getRatDataArray().isEmpty()) {
+            // open file that contains rat sighting data
+            InputStream ins = getResources().openRawResource(getResources().getIdentifier(
+                    "rat_sightings", "raw", getPackageName()));
+
+            // load rat sighting data from file onto device memory
+            rdr.LoadRatData(ins, 40);
+        }
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override

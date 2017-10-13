@@ -24,8 +24,8 @@ import java.util.List;
 
 public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
 
-    private static RatSighting[] ratData;
-    private static String[] ratDataString;
+    private static ArrayList<RatSighting> ratData = new ArrayList<RatSighting>();
+    private static ArrayList<String> ratDataString = new ArrayList<String>();
 
     // Loads rat sighting data from file and formats into various data structures to return later
     // TODO: right now about three data structures are created from the data in the file, using up
@@ -51,23 +51,25 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
             Log.e("Tag", "error reading assets", e);
         }
 
-        ratData = new RatSighting[ratSightList.size()];
-        ratDataString = new String[ratSightList.size()];
-
-        for (int i = 0; i < ratSightList.size(); i++) {
-            ratData[i] = ratSightList.get(i);
-            ratDataString[i] = String.valueOf(ratSightList.get(i).getKey() +
-                    " " + ratSightList.get(i).getCity());
+        for (RatSighting r : ratSightList) {
+            ratData.add(r);
+            ratDataString.add(r.getKey() + " " + r.getCity());
         }
     }
 
     // returns rat sightings with complete set of data
-    public RatSighting[] getRatDataArray() {
+    public ArrayList<RatSighting> getRatDataArray() {
         return ratData;
     }
 
     // returns rat sightings as a unique id and city
-    public String[] getRatDataString() { return ratDataString; }
+    public ArrayList<String> getRatDataString() { return ratDataString; }
+
+    // adds new sighting to front of arraylist
+    public void addSighting(RatSighting sighting) {
+        ratData.add(0, sighting);
+        ratDataString.add(0, sighting.getKey() + " " + sighting.getCity());
+    }
 
     @Override
     protected Long doInBackground(InputStream... params) {
