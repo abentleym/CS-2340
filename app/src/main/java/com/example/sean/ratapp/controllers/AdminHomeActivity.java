@@ -15,6 +15,7 @@ import com.example.sean.ratapp.R;
 public class AdminHomeActivity extends AppCompatActivity {
     private Button logOutButton;
     private Button searchSighting;
+    private Button addSighting;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         logOutButton = (Button) findViewById(R.id.logOut);
         searchSighting = (Button) findViewById(R.id.searchSighting);
+        addSighting = (Button) findViewById(R.id.addSighting);
 
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +39,14 @@ public class AdminHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent search = new Intent(AdminHomeActivity.this, RatSightingList.class);
                 startActivity(search);
+            }
+        });
+
+        addSighting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent add = new Intent(AdminHomeActivity.this, AddSightingActivity.class);
+                startActivity(add);
             }
         });
     }
