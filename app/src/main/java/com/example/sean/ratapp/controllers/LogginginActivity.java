@@ -3,9 +3,11 @@ package com.example.sean.ratapp.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.UserManager;
@@ -37,7 +39,6 @@ public class LogginginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
 
         logIn = (Button) findViewById(R.id.enter_login);
-        error = (Button) findViewById(R.id.error);
         back = (Button) findViewById(R.id.back);
 
         logIn.setOnClickListener(new View.OnClickListener() {
@@ -56,15 +57,11 @@ public class LogginginActivity extends AppCompatActivity {
                         startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
                     }
                 } else {
-                    error.setVisibility(View.VISIBLE);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Invalid User information",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,-300);
+                    toast.show();
                 }
-            }
-        });
-
-        error.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                error.setVisibility(View.INVISIBLE);
             }
         });
 

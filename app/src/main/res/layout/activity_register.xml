@@ -50,10 +50,4 @@
         android:layout_height="wrap_content"
         android:text="Back to home screen" />
 
-    <Button
-        android:id="@+id/badRegistration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="User name already used please choose a different user name"
-        android:visibility="invisible" />
 </LinearLayout>
