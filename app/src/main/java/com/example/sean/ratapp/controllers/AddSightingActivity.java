@@ -56,11 +56,23 @@ public class AddSightingActivity extends AppCompatActivity {
                         address.getText().toString(), city.getText().toString(),
                         borough.getText().toString(), Double.parseDouble(latitude.getText().toString()),
                         Double.parseDouble(longitude.getText().toString()));
-                rdr.addSighting(sighting);
-                finish();
-                Intent go = new Intent(AddSightingActivity.this, RatSightingList.class);
-                startActivity(go);
+
+               if(isValid(sighting)){//adds sighting iff it has data in each field
+                   rdr.addSighting(sighting);
+                   finish();
+                   Intent go = new Intent(AddSightingActivity.this, RatSightingList.class);
+                   startActivity(go);
+               }
             }
         });
+
+    }
+    public boolean isValid(RatSighting sighting){//makes sure all data fields are filled
+        if(address == null || city == null || locationType == null || zip == null
+                || borough == null || date == null || latitude == null || longitude == null){
+            return false;
+        }
+        return true;
+
     }
 }
