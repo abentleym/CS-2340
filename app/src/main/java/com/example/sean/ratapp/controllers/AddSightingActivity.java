@@ -3,9 +3,11 @@ package com.example.sean.ratapp.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.RatDataReader;
@@ -51,28 +53,43 @@ public class AddSightingActivity extends AppCompatActivity {
         addSighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RatSighting sighting = new RatSighting(date.getText().toString(),
-                        locationType.getText().toString(), Integer.parseInt(zip.getText().toString()),
-                        address.getText().toString(), city.getText().toString(),
-                        borough.getText().toString(), Double.parseDouble(latitude.getText().toString()),
-                        Double.parseDouble(longitude.getText().toString()));
-
-               if(isValid(sighting)){//adds sighting iff it has data in each field
-                   rdr.addSighting(sighting);
-                   finish();
-                   Intent go = new Intent(AddSightingActivity.this, RatSightingList.class);
-                   startActivity(go);
-               }
+                if (!isValid(zip)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Invalid ZipCode",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                } else if (!isValid(latitude)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Invalid Latitude",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                } else if (!isValid(longitude)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Invalid Longitude",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                } else {
+                    RatSighting sighting = new RatSighting(date.getText().toString(),
+                            locationType.getText().toString(),
+                            Integer.parseInt(zip.getText().toString()),
+                            address.getText().toString(), city.getText().toString(),
+                            borough.getText().toString(),
+                            Double.parseDouble(latitude.getText().toString()),
+                            Double.parseDouble(longitude.getText().toString()));
+                    rdr.addSighting(sighting);
+                    finish();
+                    Intent go = new Intent(AddSightingActivity.this, RatSightingList.class);
+                    startActivity(go);
+                }
             }
         });
-
     }
-    public boolean isValid(RatSighting sighting){//makes sure all data fields are full
-        if(address == null || city == null || locationType == null || zip == null
-                || borough == null || date == null || latitude == null || longitude == null){
-            return false;
-        }
-        return true;
 
+    public static boolean isValid(EditText text) {
+        if (text.getText().toString().equals("")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
