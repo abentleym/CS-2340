@@ -67,7 +67,7 @@ public class AddSightingActivity extends AppCompatActivity {
         });
 
     }
-    public boolean isValid(RatSighting sighting){//makes sure all data fields are filled
+    public boolean isValid(RatSighting sighting){//makes sure all data fields are full
         if(address == null || city == null || locationType == null || zip == null
                 || borough == null || date == null || latitude == null || longitude == null){
             return false;
