@@ -12,6 +12,9 @@
         android:debuggable="false">
 
         <activity android:name=".controllers.StartScreenActivity">
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
