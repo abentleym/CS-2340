@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -82,6 +83,39 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
     }
 
     protected void onPostExecute(Long result) {
+
+    }
+
+    void saveAsText(PrintWriter writer) {
+        System.out.println("Manager saving: " + ratData.size() + " rat sightings" );
+        writer.println(ratData.size());
+        for(RatSighting s : ratData) {
+            s.saveAsText(writer);
+        }
+    }
+
+    void loadFromText(BufferedReader reader) {
+        System.out.println("Loading Text File");
+        ratData.clear();
+        ratDataString.clear();
+        try {
+            String countStr = reader.readLine();
+            assert countStr != null;
+            int count = Integer.parseInt(countStr);
+
+            //then read in each user to model
+            for (int i = 0; i < count; ++i) {
+                String line = reader.readLine();
+                RatSighting s = RatSighting.parseEntry(line);
+                ratData.add(s);
+                ratDataString.add(s.toString());
+            }
+            //be sure and close the file
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Done loading text file with " + ratData.size() + " students");
 
     }
 }

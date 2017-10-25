@@ -10,8 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.sean.ratapp.R;
+import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.RatDataReader;
 import com.example.sean.ratapp.model.RatSighting;
+
+import java.io.File;
 
 /**
  * Created by jfahe on 10/13/2017.
@@ -28,6 +31,8 @@ public class AddSightingActivity extends AppCompatActivity {
     private EditText longitude;
     private Button addSighting;
     private RatDataReader rdr;
+    private Model model = Model.INSTANCE;
+    private File file;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,8 @@ public class AddSightingActivity extends AppCompatActivity {
                             Double.parseDouble(latitude.getText().toString()),
                             Double.parseDouble(longitude.getText().toString()));
                     rdr.addSighting(sighting);
+                    file = new File(getFilesDir(), Model.DEFAULT_RATTEXT_FILE_NAME);
+                    model.saveText(file);
                     finish();
                     Intent go = new Intent(AddSightingActivity.this, RatSightingList.class);
                     startActivity(go);

@@ -1,7 +1,11 @@
 package com.example.sean.ratapp.model;
 
 
+import java.io.PrintWriter;
 import java.util.Random;
+
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 /**
  * Created by jfahe on 10/6/2017.
@@ -66,5 +70,21 @@ public class RatSighting {
     @Override
     public String toString() {
         return String.valueOf(key) + " " + this.getCity();
+    }
+
+    public void saveAsText(PrintWriter writer) {
+        System.out.println("Student saving student: " + key);
+        writer.println(key + "\t" + createdDate + "\t" + locationType + "\t" + zip + "\t" + address
+        + "\t" + city + "\t" + borough + "\t" + latitude + "\t" + longitude);
+    }
+
+    public static RatSighting parseEntry(String line) {
+        assert line != null;
+        String[] tokens = line.split("\t");
+        assert tokens.length == 9;
+        RatSighting s = new RatSighting(parseInt(tokens[0]), tokens[1], tokens[2],
+                parseInt(tokens[3]), tokens[4], tokens[5], tokens[6], parseDouble(tokens[7]),
+                parseDouble(tokens[8]));
+        return s;
     }
 }

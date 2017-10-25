@@ -7,14 +7,18 @@ import android.widget.Button;
 import android.content.Intent;
 
 import com.example.sean.ratapp.R;
+import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.RatDataReader;
 
+import java.io.File;
 import java.io.InputStream;
 
 public class StartScreenActivity extends AppCompatActivity {
 
     Button logInButton;
     Button registerButton;
+    private File file;
+    private Model model = Model.INSTANCE;
 
 
     @Override
@@ -26,6 +30,9 @@ public class StartScreenActivity extends AppCompatActivity {
         registerButton = (Button) findViewById(R.id.registerButton);
 
         RatDataReader rdr = new RatDataReader();
+
+        file = new File(this.getFilesDir(), model.DEFAULT_RATTEXT_FILE_NAME);
+        model.loadText(file);
 
         if (rdr.getRatDataArray().isEmpty()) {
             // open file that contains rat sighting data
