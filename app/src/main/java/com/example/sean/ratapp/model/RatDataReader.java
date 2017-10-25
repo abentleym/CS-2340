@@ -69,7 +69,7 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
     // adds new sighting to front of arraylist
     public void addSighting(RatSighting sighting) {
         ratData.add(0, sighting);
-        ratDataString.add(0, sighting.getKey() + " " + sighting.getCity());
+        ratDataString.add(0, sighting.toString());
     }
 
     @Override
@@ -86,6 +86,10 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
 
     }
 
+    /**
+     * saves rat data by calling ratsighting saveAsText method
+     * @param writer object used to write to the text file
+     */
     void saveAsText(PrintWriter writer) {
         System.out.println("Manager saving: " + ratData.size() + " rat sightings" );
         writer.println(ratData.size());
@@ -94,6 +98,12 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
         }
     }
 
+    /**
+     * loads rat text by creating new rat sightings from the text file and adds them back to the
+     * arraylist
+     * also recreates the string array list
+     * @param reader the object that reads the file data
+     */
     void loadFromText(BufferedReader reader) {
         System.out.println("Loading Text File");
         ratData.clear();
@@ -115,7 +125,6 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Done loading text file with " + ratData.size() + " students");
-
+        System.out.println("Done loading text file with " + ratData.size() + " rat sightings");
     }
 }

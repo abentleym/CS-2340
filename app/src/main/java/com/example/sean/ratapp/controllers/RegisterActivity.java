@@ -12,9 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.sean.ratapp.R;
+import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.User;
 import com.example.sean.ratapp.model.UserManager;
 
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -25,15 +27,12 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText _userName;
     private EditText _password;
     private Button _register;
-    private Button _error;
     private String _user_name;
     private String _pass_word;
     private CheckBox _admin;
     private Button _back;
-    private User _user;
-    private String _userName_text;
-
-
+    private File file;
+    private Model model = Model.INSTANCE;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

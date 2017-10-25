@@ -1,13 +1,13 @@
 package com.example.sean.ratapp.model;
 
 import java.util.HashMap;
-
 /**
  * Created by Sean on 10/1/2017.
  */
 
 public class UserManager {
     private static HashMap<String, User> _user_hash_map = new HashMap<>(10);
+
 
 
     /**
@@ -75,4 +75,6 @@ public class UserManager {
     public static User getUser(String username) {
         return _user_hash_map.get(username);
     }
+
+
 }

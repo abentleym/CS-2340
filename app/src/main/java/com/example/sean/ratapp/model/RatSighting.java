@@ -72,12 +72,21 @@ public class RatSighting {
         return String.valueOf(key) + " " + this.getCity();
     }
 
+    /**
+     * used to write the rat sighting object into the line to be saved
+     * @param writer the object writing the rat sighting object
+     */
     public void saveAsText(PrintWriter writer) {
         System.out.println("Student saving student: " + key);
         writer.println(key + "\t" + createdDate + "\t" + locationType + "\t" + zip + "\t" + address
         + "\t" + city + "\t" + borough + "\t" + latitude + "\t" + longitude);
     }
 
+    /**
+     * used to create a new rat sighting object by reading a text line
+     * @param line line entered to be read in
+     * @return rat sighting created from reading line
+     */
     public static RatSighting parseEntry(String line) {
         assert line != null;
         String[] tokens = line.split("\t");

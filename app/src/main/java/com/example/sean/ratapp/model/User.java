@@ -1,8 +1,6 @@
 package com.example.sean.ratapp.model;
 
-import android.os.Parcelable;
-import android.widget.SectionIndexer;
-
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 
@@ -21,9 +19,9 @@ public class User implements Serializable{
         _loggedIn = false; // false upon app start up
     }
 
-    // user has not logged in yet
     public User() {
-        this("user", "pass");
+        _userPassword = "pass";
+        _userName = "user";
     }
 
     public Boolean logIn(String name, String password) {
@@ -58,4 +56,5 @@ public class User implements Serializable{
     public boolean isAdmin() {
         return false;
     }
+
 }

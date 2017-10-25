@@ -16,6 +16,8 @@ import java.util.List;
 public class Model {
     public static final Model INSTANCE = new Model();
 
+    private UserManager um = new UserManager();
+
     private List<RatSighting> ratSightingList;
 
     public void addItem(RatSighting ratSighting) { ratSightingList.add(ratSighting); }
@@ -26,7 +28,8 @@ public class Model {
 
     private RatDataReader rdr = new RatDataReader();
 
-    public final static String DEFAULT_RATTEXT_FILE_NAME = "ratdata.txt";
+    public final static String DEFAULT_RATTEXT_FILE_NAME = "ratdata.txt"; //used for rat data
+    public final static String DEFAULT_USERTEXT_FILE_NAME = "user.txt";
 
 
     public RatSighting findSightingById(int id) {
@@ -38,7 +41,12 @@ public class Model {
         return null;
     }
 
-    public boolean saveText(File file) {
+    /**
+     * saves rat data to a txt file
+     * @param file the name of the txt file saved
+     * @return returns true if file save was successful false if file cant be found
+     */
+    public boolean saveRatText(File file) {
         System.out.println("Saving as a text file");
         try {
             PrintWriter pw = new PrintWriter(file);
@@ -46,14 +54,19 @@ public class Model {
             pw.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Log.d("UserManagerFacade", "Error opening the text file for save!");
+            Log.d("model", "Error opening the text file for save!");
             return false;
         }
 
         return true;
     }
 
-    public boolean loadText(File file) {
+    /**
+     * loads rat data
+     * @param file file name of loaded rat data
+     * @return true if successfull false if file not found
+     */
+    public boolean loadRatText(File file) {
         try {
             //make an input object for reading
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -63,7 +76,7 @@ public class Model {
             Log.e("ModelSingleton", "Failed to open text file for loading!");
             return false;
         }
-
         return true;
     }
+
 }

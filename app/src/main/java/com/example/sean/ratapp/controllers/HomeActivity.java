@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.content.Intent;
+
+import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.User;
 import android.view.View;
 import android.widget.TextView;
 
 
 import com.example.sean.ratapp.R;
+
+import java.io.File;
 
 /**
  * Created by jfahe on 9/23/2017.
@@ -19,6 +23,8 @@ public class HomeActivity extends AppCompatActivity {
     private Button logOutButton;
     private Button searchSighting;
     private Button addSighting;
+    private Model model = Model.INSTANCE;
+    private File file;
 
 
     protected void onCreate(Bundle savedInstanceState) {

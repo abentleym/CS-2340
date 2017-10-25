@@ -9,6 +9,7 @@ import android.content.Intent;
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.RatDataReader;
+import com.example.sean.ratapp.model.UserManager;
 
 import java.io.File;
 import java.io.InputStream;
@@ -17,9 +18,9 @@ public class StartScreenActivity extends AppCompatActivity {
 
     Button logInButton;
     Button registerButton;
-    private File file;
+    private File ratFile;
+    private File userFile;
     private Model model = Model.INSTANCE;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,9 @@ public class StartScreenActivity extends AppCompatActivity {
 
         RatDataReader rdr = new RatDataReader();
 
-        file = new File(this.getFilesDir(), model.DEFAULT_RATTEXT_FILE_NAME);
-        model.loadText(file);
+        ratFile = new File(this.getFilesDir(), model.DEFAULT_RATTEXT_FILE_NAME);
+        userFile = new File(this.getFilesDir(), model.DEFAULT_USERTEXT_FILE_NAME);
+        model.loadRatText(ratFile);
 
         if (rdr.getRatDataArray().isEmpty()) {
             // open file that contains rat sighting data

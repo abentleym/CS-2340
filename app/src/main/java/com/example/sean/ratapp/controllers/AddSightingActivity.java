@@ -83,7 +83,7 @@ public class AddSightingActivity extends AppCompatActivity {
                             Double.parseDouble(longitude.getText().toString()));
                     rdr.addSighting(sighting);
                     file = new File(getFilesDir(), Model.DEFAULT_RATTEXT_FILE_NAME);
-                    model.saveText(file);
+                    model.saveRatText(file);
                     finish();
                     Intent go = new Intent(AddSightingActivity.this, RatSightingList.class);
                     startActivity(go);
