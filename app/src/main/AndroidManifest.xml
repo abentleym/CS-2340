@@ -11,6 +11,10 @@
         android:theme="@style/AppTheme"
         android:debuggable="false">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCN-nut6O4mujt1U8nBRvmgmT3y1MnqNAI" />
+
         <activity android:name=".controllers.StartScreenActivity">
             <meta-data
                 android:name="com.google.android.gms.version"
@@ -28,6 +32,7 @@
         <activity android:name=".controllers.RatSightingList"></activity>
         <activity android:name=".controllers.RatSightingDetails"></activity>
         <activity android:name=".controllers.AddSightingActivity"></activity>
+        <activity android:name=".controllers.MapsActivity"></activity>
     </application>
 
 </manifest>

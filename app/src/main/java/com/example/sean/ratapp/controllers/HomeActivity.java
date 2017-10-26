@@ -23,9 +23,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button logOutButton;
     private Button searchSighting;
     private Button addSighting;
-    private Model model = Model.INSTANCE;
-    private File file;
-
+    private Button maps;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         logOutButton = (Button) findViewById(R.id.logOut);
         searchSighting = (Button) findViewById(R.id.searchSighting);
         addSighting = (Button) findViewById(R.id.addSighting);
+        maps = (Button) findViewById(R.id.maps);
 
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +56,14 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent add = new Intent(HomeActivity.this, AddSightingActivity.class);
                 startActivity(add);
+            }
+        });
+
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent maps = new Intent(HomeActivity.this, MapsActivity.class);
+                startActivity(maps);
             }
         });
     }
