@@ -61,17 +61,17 @@ public class AddSightingActivity extends AppCompatActivity {
                 if (!isValid(zip)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Invalid ZipCode",
                             Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 } else if (!isValid(latitude)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Invalid Latitude",
                             Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 } else if (!isValid(longitude)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Invalid Longitude",
                             Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 } else {
                     RatSighting sighting = new RatSighting(date.getText().toString(),

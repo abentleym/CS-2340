@@ -1,6 +1,8 @@
 package com.example.sean.ratapp.model;
 
 
+import android.util.Log;
+
 import java.io.PrintWriter;
 import java.util.Random;
 
@@ -91,9 +93,14 @@ public class RatSighting {
         assert line != null;
         String[] tokens = line.split("\t");
         assert tokens.length == 9;
-        RatSighting s = new RatSighting(parseInt(tokens[0]), tokens[1], tokens[2],
-                parseInt(tokens[3]), tokens[4], tokens[5], tokens[6], parseDouble(tokens[7]),
-                parseDouble(tokens[8]));
-        return s;
+        try {
+            RatSighting s = new RatSighting(parseInt(tokens[0]), tokens[1], tokens[2],
+                    parseInt(tokens[3]), tokens[4], tokens[5], tokens[6], parseDouble(tokens[7]),
+                    parseDouble(tokens[8]));
+            return s;
+        } catch (Exception e) {
+            Log.e("Error", "Bad sighting save");
+            return null;
+        }
     }
 }

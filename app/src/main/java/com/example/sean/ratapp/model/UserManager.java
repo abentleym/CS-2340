@@ -1,12 +1,22 @@
 package com.example.sean.ratapp.model;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.HashMap;
+import org.json.JSONArray;
+import org.json.JSONObject;
 /**
  * Created by Sean on 10/1/2017.
  */
 
 public class UserManager {
-    private static HashMap<String, User> _user_hash_map = new HashMap<>(10);
+    public static HashMap<String, User> _user_hash_map = new HashMap<>(10);
 
 
 

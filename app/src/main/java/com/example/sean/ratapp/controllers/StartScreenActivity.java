@@ -35,6 +35,7 @@ public class StartScreenActivity extends AppCompatActivity {
         ratFile = new File(this.getFilesDir(), model.DEFAULT_RATTEXT_FILE_NAME);
         userFile = new File(this.getFilesDir(), model.DEFAULT_USERTEXT_FILE_NAME);
         model.loadRatText(ratFile);
+        RegisterActivity.loadUsersFromJSON(userFile);
 
         if (rdr.getRatDataArray().isEmpty()) {
             // open file that contains rat sighting data

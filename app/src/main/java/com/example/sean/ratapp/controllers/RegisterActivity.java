@@ -16,8 +16,17 @@ import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.User;
 import com.example.sean.ratapp.model.UserManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Iterator;
+
 
 /**
  * Created by jfahe on 9/29/2017.
@@ -52,6 +61,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (_admin.isChecked()) {
                     if (UserManager.addAdmin(_user_name, _pass_word)) {
+                        // A new admin has been registered
+                        saveUserText(UserManager._user_hash_map);
                         finish();
                         startActivity(new Intent(RegisterActivity.this, AdminHomeActivity.class));
                     } else {
@@ -63,6 +74,8 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 } else {
                     if (UserManager.addUser(_user_name, _pass_word)) {
+                        // A new user has been registered
+                        saveUserText(UserManager._user_hash_map);
                         finish();
                         startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                     } else {
@@ -83,6 +96,97 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(new Intent(RegisterActivity.this, StartScreenActivity.class));
             }
         });
+
+    }
+
+    /**
+     * saves rat data to a txt file
+     * @param allUsers the hashmap containing all registered users, stored in UserManager.
+     * @return returns true if file save was successful false if file cant be found
+     */
+    public boolean saveUserText(HashMap<String, User> allUsers) {
+
+        File file = new File(getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
+
+        System.out.println("Saving users as a text file");
+        try {
+            PrintWriter pw = new PrintWriter(file);
+
+
+            System.out.println("RegisterActvity saving users" );
+            pw.println(allUsers.size());
+
+
+            JSONObject usersObject = new JSONObject();
+
+            for(String key : allUsers.keySet()) {
+                try {
+                    JSONObject singleUser = new JSONObject();
+                    User user = allUsers.get(key);/*
+                    singleUser.put("Username", user.getUsername());
+                    singleUser.put("Password", user.getPassword());*/
+                    usersObject.put(key, user.getPassword());
+                } catch (JSONException e) {
+                    System.out.println("Error saving user into JSON object");
+                }
+            }
+            pw.write((usersObject.toString()));
+
+            System.out.println(usersObject.toString());
+            pw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Log.d("model", "Error opening the text file for save!");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param file the file containing all the JSON representatives of Users
+     * @return true if loading was successful
+     */
+    public static boolean loadUsersFromJSON(File file) {
+
+        try {
+            //make an input object for reading
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            try {
+                String jsonTxt = reader.readLine();
+                jsonTxt = reader.readLine();
+                System.out.println("File Contents: " + jsonTxt);
+                try {
+                    JSONObject json = new JSONObject(jsonTxt);
+                    System.out.println("JSON Contents: " + json.toString());
+                    Iterator<?> keys = json.keys();
+                    int i = 0;
+                    int limit = 20;
+                    while (keys.hasNext()/* && i < limit*/){
+                        String username = (String)keys.next();
+                        String pass = json.getString(username);
+                        UserManager._user_hash_map.put(username, new User(username, pass));
+
+                        System.out.println("Key get " + username + " " + i++);
+                        //json.keys().remove();
+                    }
+                    if (i >= limit) {
+                        System.out.println("Parsed to limit");
+                    }
+                } catch (JSONException e) {
+                    System.out.println("Error loading from JSON");
+                }
+            } catch (Exception e) {
+
+                System.out.println("Error loading from file");
+            }
+
+        } catch (FileNotFoundException e) {
+            Log.e("ModelSingleton", "Failed to open text file for loading!");
+            return false;
+        }
+        return true;
 
     }
 }

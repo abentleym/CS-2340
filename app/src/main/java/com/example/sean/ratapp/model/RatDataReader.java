@@ -117,8 +117,10 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
             for (int i = 0; i < count; ++i) {
                 String line = reader.readLine();
                 RatSighting s = RatSighting.parseEntry(line);
-                ratData.add(s);
-                ratDataString.add(s.toString());
+                if (s != null) {
+                    ratData.add(s);
+                    ratDataString.add(s.toString());
+                }
             }
             //be sure and close the file
             reader.close();
