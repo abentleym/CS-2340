@@ -19,6 +19,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button logOutButton;
     private Button searchSighting;
     private Button addSighting;
+    private Button viewmap;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         logOutButton = (Button) findViewById(R.id.logOut);
         searchSighting = (Button) findViewById(R.id.searchSighting);
         addSighting = (Button) findViewById(R.id.addSighting);
-
+        viewmap = (Button) findViewById(R.id.viewmap);
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,13 +39,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        searchSighting.setOnClickListener(new View.OnClickListener() {
+        /**searchSighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent search = new Intent(HomeActivity.this, RatSightingList.class);
                 startActivity(search);
             }
-        });
+        });**/
 
         addSighting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,5 +54,15 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(add);
             }
         });
+
+        searchSighting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewmap = new Intent(HomeActivity.this, MapActivity.class);
+                startActivity(viewmap);
+            }
+        });
+
+
     }
 }
