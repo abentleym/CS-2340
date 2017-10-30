@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.RatDataReader;
+import com.example.sean.ratapp.model.RatSighting;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,6 +25,8 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +34,7 @@ import java.util.List;
  * Created by jfahe on 10/8/2017.
  */
 
-public class RatSightingListActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, OnMapReadyCallback {
+public class RatSightingListActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,62 +43,23 @@ public class RatSightingListActivity extends AppCompatActivity implements DatePi
 
         RatDataReader rdr = new RatDataReader();
 
-        // open file that contains rat sighting data
-        /*InputStream ins = getResources().openRawResource(getResources().getIdentifier(
-                "rat_sightings", "raw", getPackageName()));
-
-        // load rat sighting data from file onto device memory
-        rdr.LoadRatData(ins, 40);*/
-/*
-        // create a list view to list rat sightings
-        ListView listView = (ListView) findViewById(R.id.listOfRatSightings);
-
         // create an adapter to populate the list view with the unique ids of the rat sightings
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, rdr.getRatDataString());
 
-        // send data from adapter to list view to display
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-
-                Intent search = new Intent(RatSightingList.this, RatSightingDetails.class);
-                RatSightingDetails.setSelectedsighting(position);
-                startActivity(search);
-
-            }
-            });
-*/
-        final EditText textDate = (EditText) findViewById(R.id.dateEditText);
-        DateRangeInput dialogInput = new DateRangeInput();
-        dialogInput.textDate = textDate;/*
-        textDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                }
-            }
-        });*/
-        /*
-    <ListView
-        android:id="@+id/listOfRatSightings"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>*/
         final DatePickerDialog dpd;
         if (!startDateSet) {
-            dpd = new DatePickerDialog(this, this, 2015, 9, 5);
+            dpd = new DatePickerDialog(this, this, 2015, 8, 4);
         } else {
             DateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
             int month = 9;
             int day = 0;
             int year = 2015;
             try {
-                Date d = dateFormat.parse(startDate);
-                month = Integer.parseInt(startDate.substring(0, 2));
-                day = Integer.parseInt(startDate.substring(3, 5));
-                year = Integer.parseInt(startDate.substring(6, 10));
+                Date d = dateFormat.parse(startDateString);
+                month = Integer.parseInt(startDateString.substring(0, 2));
+                day = Integer.parseInt(startDateString.substring(3, 5));
+                year = Integer.parseInt(startDateString.substring(6, 10));
             } catch (ParseException e) {
                 System.out.println("error parsing date");
             }
@@ -111,29 +75,48 @@ public class RatSightingListActivity extends AppCompatActivity implements DatePi
     }
 
     boolean startDateSet = false;
-    String startDate;
-    String endDate;
+    String startDateString;
+    String endDateString;
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
         if (!startDateSet) {
-            startDate = month + "/" + day + "/" + year;
+            startDateString = "";
+            if (++month < 10) {
+                startDateString += "0";
+            }
+            startDateString += month + "/";
+            if (day < 10) {
+                startDateString += "0";
+            }
+            startDateString += day + "/" + year;
             startDateSet = true;
-            System.out.println("Start: " + startDate);
+            System.out.println("Start: " + startDateString);
+            ((Button) findViewById(R.id.pickDateButton)).setText("What's the latest date to search for?");
         } else {
-            endDate = month + "/" + day + "/" + year;
+            endDateString = "";
+            if (++month < 10) {
+                endDateString += "0";
+            }
+            endDateString += month + "/";
+            if (day < 10) {
+                endDateString += "0";
+            }
+            endDateString += day + "/" + year;
             startDateSet = false;
-            System.out.println("end: " + endDate);
+            System.out.println("end: " + endDateString);
 
+            MapActivity.SetDateRange(startDateString, endDateString);
             startActivity(new Intent(RatSightingListActivity.this, MapActivity.class));
+            ((Button) findViewById(R.id.pickDateButton)).setText("What's the earliest date to search for?");
         }
     }
 
-    @Override
-    public void onMapReady(GoogleMap gmap) {
+    public String getStartDate() {
+        return startDateString;
+    }
 
-        LatLng atlanta = new LatLng(-34, 151);
-        gmap.addMarker(new MarkerOptions().position(atlanta).title("Marker in Sydney"));
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(atlanta));
+    public String getEndDate() {
+        return endDateString;
     }
 }

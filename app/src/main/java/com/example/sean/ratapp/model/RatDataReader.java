@@ -34,6 +34,7 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
     // isn't wasted.
     public void LoadRatData(InputStream ins, int maxEntriesToRead) {
 
+        int i = 0;
         ArrayList<RatSighting> ratSightList = new ArrayList<RatSighting>();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(ins, StandardCharsets.UTF_8));
@@ -46,6 +47,7 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
                 ratSightList.add(new RatSighting(Integer.parseInt(tokens[0]), tokens[1], tokens[7],
                         Integer.parseInt(tokens[8]), tokens[9], tokens[16], tokens[23],
                         Double.parseDouble(tokens[49]), Double.parseDouble(tokens[50])));
+                System.out.println("Read entry " + i++);
             }
             br.close();
         } catch (IOException e) {
@@ -53,13 +55,15 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
         }
 
         for (RatSighting r : ratSightList) {
+            i++;
             ratData.add(r);
             ratDataString.add(r.getKey() + " " + r.getCity());
         }
+        System.out.println(i + " entries parsed.");
     }
 
     // returns rat sightings with complete set of data
-    public ArrayList<RatSighting> getRatDataArray() {
+    public static ArrayList<RatSighting> getRatDataArray() {
         return ratData;
     }
 

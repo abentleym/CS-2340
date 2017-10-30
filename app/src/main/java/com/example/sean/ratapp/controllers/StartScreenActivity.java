@@ -37,14 +37,13 @@ public class StartScreenActivity extends AppCompatActivity {
         model.loadRatText(ratFile);
         RegisterActivity.loadUsersFromJSON(userFile);
 
-        if (rdr.getRatDataArray().isEmpty()) {
             // open file that contains rat sighting data
             InputStream ins = getResources().openRawResource(getResources().getIdentifier(
                     "rat_sightings", "raw", getPackageName()));
 
             // load rat sighting data from file onto device memory
-            rdr.LoadRatData(ins, 40);
-        }
+            rdr.LoadRatData(ins, 70);
+            // TODO: For some reason outOfBounds errors occur after around 70 lines.
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
