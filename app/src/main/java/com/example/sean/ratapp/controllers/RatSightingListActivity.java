@@ -47,6 +47,20 @@ public class RatSightingListActivity extends AppCompatActivity implements DatePi
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, rdr.getRatDataString());
 
+        ListView listView =  (ListView) findViewById(R.id.AllRatSightList);
+
+        // send data from adapter to list view to display
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                           long id) {
+                    Intent search = new Intent(RatSightingListActivity.this, RatSightingDetails.class);
+                    RatSightingDetails.setSelectedsighting(position);
+                    startActivity(search);
+              }
+        });
+
         final DatePickerDialog dpd;
         if (!startDateSet) {
             dpd = new DatePickerDialog(this, this, 2015, 8, 4);

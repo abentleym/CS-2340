@@ -4,6 +4,11 @@ package com.example.sean.ratapp.model;
 import android.util.Log;
 
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Random;
 
 import static java.lang.Double.parseDouble;
@@ -13,7 +18,7 @@ import static java.lang.Integer.parseInt;
  * Created by jfahe on 10/6/2017.
  */
 
-public class RatSighting {
+public class RatSighting implements Comparator<RatSighting>{
     private String locationType;
     private int key;
     private int zip;
@@ -102,5 +107,29 @@ public class RatSighting {
             Log.e("Error", "Bad sighting save");
             return null;
         }
+    }
+
+    @Override
+    public int compare(RatSighting other1, RatSighting other2) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Date date1;
+
+        try{
+            date1 = sdf.parse(other1.getDate());
+        } catch (ParseException pe) {
+            return -1;
+        }
+        Date date2;
+
+        try{
+            date2 = sdf.parse(other2.getDate());
+        } catch (ParseException pe) {
+            return -1;
+        }
+        if (date1.after(date2)) {
+            return 1;
+        }
+        return -1;
     }
 }

@@ -16,7 +16,13 @@ import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,16 +49,51 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
             br.readLine(); //get rid of header line
             while ((line = br.readLine()) != null && maxEntriesToRead-- > 0) {
                 String[] tokens = line.split(",");
+                //Error at key 31473349, entry 75  in CSV
 
-                ratSightList.add(new RatSighting(Integer.parseInt(tokens[0]), tokens[1], tokens[7],
-                        Integer.parseInt(tokens[8]), tokens[9], tokens[16], tokens[23],
-                        Double.parseDouble(tokens[49]), Double.parseDouble(tokens[50])));
-                System.out.println("Read entry " + i++);
+                if (tokens.length == 53) {
+                        System.out.println("Read entry " + i++);
+
+                    if (i > 69) {
+                        System.out.println("Entry " + i + " has key " + tokens[0] + " and split has " + tokens
+                                .length + " tokens.");
+                    }
+                    ratSightList.add(new RatSighting(Integer.parseInt(tokens[0]), tokens[1], tokens[7],
+                            Integer.parseInt(tokens[8]), tokens[9], tokens[16], tokens[23],
+                            Double.parseDouble(tokens[49]), Double.parseDouble(tokens[50])));
+                }
             }
             br.close();
         } catch (IOException e) {
             Log.e("Tag", "error reading assets", e);
         }
+        Collections.sort(ratSightList, new Comparator<RatSighting>() {
+            @Override
+            public int compare(RatSighting o1, RatSighting o2) {
+
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                Date date1;
+
+                try{
+                    date1 = sdf.parse(o1.getDate().substring(0, 10));
+                } catch (ParseException pe) {
+                    System.out.println("Error: Date " + o1.getDate().substring(0, 10));
+                    return -1;
+                }
+                Date date2;
+
+                try{
+                    date2 = sdf.parse(o2.getDate().substring(0, 10));
+                } catch (ParseException pe) {
+                    System.out.println("Error: Date " + o2.getDate().substring(0, 10));
+                    return -1;
+                }
+                if (date1.after(date2)) {
+                    return 1;
+                }
+                return -1;
+            }
+        });
 
         for (RatSighting r : ratSightList) {
             i++;

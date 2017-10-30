@@ -42,7 +42,7 @@ public class StartScreenActivity extends AppCompatActivity {
                     "rat_sightings", "raw", getPackageName()));
 
             // load rat sighting data from file onto device memory
-            rdr.LoadRatData(ins, 70);
+            rdr.LoadRatData(ins, 200);
             // TODO: For some reason outOfBounds errors occur after around 70 lines.
 
         logInButton.setOnClickListener(new View.OnClickListener() {

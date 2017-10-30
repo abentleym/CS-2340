@@ -19,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             System.out.println("Parsing start date (" + startDateString + ") failed.");
             endDate = Calendar.getInstance().getTime();
         }
-
+//31472488
         // Find the first rat entry past the start date
         boolean greaterDateFound = false;
         int start = 0;
@@ -121,12 +122,37 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             System.out.println("No end date found after " + end + " parses.");
         }
 
+        ArrayList<RatSighting> badSolution = new ArrayList<>();
+
+        for (int z = 0; z < ratDataArray.size(); z++) {
+            testEndDateString = ratDataArray.get(z).getDate();
+            Date testDate;
+            try {
+                testDate = sdf.parse(testEndDateString.substring(0, 10));
+            } catch (ParseException e) {
+                System.out.println("Parsing test date (" + testEndDateString + ") failed.");
+                testDate = Calendar.getInstance().getTime();
+            }
+            if (testDate.after(startDate) && testDate.before(endDate)) {
+                badSolution.add(ratDataArray.get(z));
+                greaterDateFound = true;
+
+                System.out.println("Found between date: " + testEndDateString);
+            }
+        }
+
         // Add markers for each ratSighting in the date range
-        for (; start < end; start++) {
+        for (int y =0; y < badSolution.size(); y++) {
+            RatSighting sighting = badSolution.get(y);
+            gMap.addMarker(new MarkerOptions().position(new LatLng(sighting.getLatitude(),
+                    sighting.getLongitude())).title("Sighting ID: " + sighting.getKey()));
+
+        }
+        /*for (; start < end; start++) {
             RatSighting sighting = ratDataArray.get(start);
             gMap.addMarker(new MarkerOptions().position(new LatLng(sighting.getLatitude(),
                     sighting.getLongitude())).title("Sighting ID: " + sighting.getKey()));
-        }
+        }*/
 
         // Add a marker in New York, and move the camera.
         LatLng ny = new LatLng(40, -74);
