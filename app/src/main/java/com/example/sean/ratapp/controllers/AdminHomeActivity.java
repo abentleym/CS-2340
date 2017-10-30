@@ -42,7 +42,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         searchSighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent search = new Intent(AdminHomeActivity.this, RatSightingList.class);
+                Intent search = new Intent(AdminHomeActivity.this, RatSightingListActivity.class);
                 startActivity(search);
             }
         });

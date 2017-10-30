@@ -4,30 +4,32 @@
 
     <application
         android:allowBackup="true"
+        android:debuggable="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:debuggable="false">
-
+        android:theme="@style/AppTheme">
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBWMEraXE7Rs0fmYBDanz4a1eK1sx2OVik"/>
         <activity android:name=".controllers.StartScreenActivity">
             <meta-data
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.LogginginActivity"></activity>
-        <activity android:name=".controllers.HomeActivity"></activity>
-        <activity android:name=".controllers.RegisterActivity"></activity>
-        <activity android:name=".controllers.AdminHomeActivity"></activity>
-        <activity android:name=".controllers.RatSightingList"></activity>
-        <activity android:name=".controllers.RatSightingDetails"></activity>
-        <activity android:name=".controllers.AddSightingActivity"></activity>
+        <activity android:name=".controllers.LogginginActivity" />
+        <activity android:name=".controllers.HomeActivity" />
+        <activity android:name=".controllers.RegisterActivity" />
+        <activity android:name=".controllers.AdminHomeActivity" />
+        <activity android:name=".controllers.RatSightingListActivity" />
+        <activity android:name=".controllers.RatSightingDetails" />
+        <activity android:name=".controllers.AddSightingActivity" />
+        <activity android:name=".controllers.MapActivity" />
     </application>
 
 </manifest>

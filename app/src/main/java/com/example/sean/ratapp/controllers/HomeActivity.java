@@ -8,6 +8,7 @@ import android.content.Intent;
 import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.User;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -47,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         searchSighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent search = new Intent(HomeActivity.this, RatSightingList.class);
+                Intent search = new Intent(HomeActivity.this, RatSightingListActivity.class);
                 startActivity(search);
             }
         });
@@ -59,5 +60,6 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(add);
             }
         });
+
     }
 }

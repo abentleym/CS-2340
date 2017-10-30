@@ -85,7 +85,7 @@ public class AddSightingActivity extends AppCompatActivity {
                     file = new File(getFilesDir(), Model.DEFAULT_RATTEXT_FILE_NAME);
                     model.saveRatText(file);
                     finish();
-                    Intent go = new Intent(AddSightingActivity.this, RatSightingList.class);
+                    Intent go = new Intent(AddSightingActivity.this, RatSightingListActivity.class);
                     startActivity(go);
                 }
             }
