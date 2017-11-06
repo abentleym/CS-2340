@@ -18,6 +18,7 @@ import java.util.ArrayList;
 class RatSightingDetails extends AppCompatActivity  {
     private static int selectedsighting;//for getting the item in the list view
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ratsightingdetails);
@@ -36,8 +37,6 @@ class RatSightingDetails extends AppCompatActivity  {
         ratInformation += "Longitude : " + selectedratsighting.getLongitude() + "\n";
         textview.setText(ratInformation);
     }
-
-
 
     public static void setSelectedsighting(int pos) {
         selectedsighting = pos;
