@@ -1,29 +1,20 @@
 package com.example.sean.ratapp.model;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.sean.ratapp.controllers.HomeActivity;
-
 import java.io.BufferedReader;
-import java.io.Console;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Sean on 10/9/2017.
@@ -103,15 +94,23 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
         System.out.println(i + " entries parsed.");
     }
 
-    // returns rat sightings with complete set of data
+    /**
+     * getter for rat data array
+     * @return the rat data array
+     */
     public static ArrayList<RatSighting> getRatDataArray() {
         return ratData;
     }
 
-    // returns rat sightings as a unique id and city
+    /**
+     * getter for rat data string array
+     * @return array of rat data strings
+     */
     public ArrayList<String> getRatDataString() { return ratDataString; }
 
-    // adds new sighting to front of arraylist
+    /**
+     * adds a new rat sighting to the rat data array
+     */
     public void addSighting(RatSighting sighting) {
         ratData.add(0, sighting);
         ratDataString.add(0, sighting.toString());
@@ -167,7 +166,6 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
                     ratDataString.add(s.toString());
                 }
             }
-            //be sure and close the file
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();

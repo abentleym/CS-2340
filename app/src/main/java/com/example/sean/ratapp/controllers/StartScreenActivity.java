@@ -15,8 +15,8 @@ import java.io.InputStream;
 
 public class StartScreenActivity extends AppCompatActivity {
 
-    Button logInButton;
-    Button registerButton;
+    private Button logInButton;
+    private Button registerButton;
     private File ratFile;
     private File userFile;
     private Model model = Model.INSTANCE;
