@@ -10,27 +10,6 @@ public class UserManager {
 
 
 
-    /**
-     *
-     * @param username the username a user has input
-     * @param password the password the user believes corresponds to the username
-     * @return if there is a user with the provided username and password
-     */
-    public static boolean checkUserLogin(String username, String password) {
-        if (_user_hash_map.containsKey(username)) {
-            return password == _user_hash_map.get(username).getUsername();
-        }
-        return false;
-    }
-
-    /**
-     *
-     * @param username the username to check if there is already a User for
-     * @return if there is already a user with this name
-     */
-    public static boolean userExists(String username) {
-        return _user_hash_map.containsKey(username);
-    }
 
     /**
      *
@@ -47,6 +26,12 @@ public class UserManager {
         return true;
     }
 
+    /**
+     *
+     * @param username the name inputted by a user
+     * @param password the password inputted by the user
+     * @return false if an admin with the username already exists, else a new admin is added to the system
+     */
     public static boolean addAdmin(String username, String password) {
         if (_user_hash_map.containsKey(username)) {
             return false;
@@ -58,7 +43,7 @@ public class UserManager {
 
     /**
      *
-     * @param username the username of the user logging in
+     @param username the username of the user logging in
      * @param password the password the user believes is right
      * @return true if there is a user with the given username and the given password is correct
      */

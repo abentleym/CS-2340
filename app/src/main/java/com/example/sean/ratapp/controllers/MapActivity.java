@@ -20,8 +20,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     private GoogleMap gMap;
 
@@ -67,11 +65,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             System.out.println("Parsing start date (" + startDateString + ") failed.");
             endDate = Calendar.getInstance().getTime();
         }
-//31472488
+
         // Find the first rat entry past the start date
         boolean greaterDateFound = false;
         int start = 0;
-        int i;
+        int i = 0;
         String testDateString;
         for (i = 0; i < ratDataArray.size() && !greaterDateFound; i++) {
             testDateString = ratDataArray.get(i).getDate();
@@ -128,6 +126,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             }
             if (testDate.after(startDate) && testDate.before(endDate)) {
                 badSolution.add(ratDataArray.get(z));
+
                 System.out.println("Found between date: " + testEndDateString);
             }
         }
@@ -140,6 +139,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         }
 
+        // Add a marker in New York, and move the camera.
         LatLng ny = new LatLng(40, -74);
         gMap.addMarker(new MarkerOptions().position(ny).title("Marker in New York"));
         gMap.moveCamera(CameraUpdateFactory.newLatLng(ny));
