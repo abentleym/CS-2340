@@ -12,8 +12,6 @@ import android.widget.Toast;
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.UserManager;
 
-import java.util.HashMap;
-
 /**
  * Created by jfahe on 9/22/2017.
  */
@@ -23,7 +21,6 @@ public class LogginginActivity extends AppCompatActivity {
     private EditText userName;
     private EditText password;
     private Button logIn;
-    private Button error;
     private Button back;
 
     // username and password stored in a String, since they are used in multiple places in the code

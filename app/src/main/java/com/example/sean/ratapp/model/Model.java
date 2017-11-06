@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.util.List;
 
 /**
  * Created by jfahe on 10/6/2017.
@@ -16,30 +15,10 @@ import java.util.List;
 public class Model {
     public static final Model INSTANCE = new Model();
 
-    private UserManager um = new UserManager();
-
-    private List<RatSighting> ratSightingList;
-
-    public void addItem(RatSighting ratSighting) { ratSightingList.add(ratSighting); }
-
-    public List<RatSighting> getItems() {
-        return ratSightingList;
-    }
-
     private RatDataReader rdr = new RatDataReader();
 
     public final static String DEFAULT_RATTEXT_FILE_NAME = "ratdata.txt"; //used for rat data
     public final static String DEFAULT_USERTEXT_FILE_NAME = "user.txt";
-
-
-    public RatSighting findSightingById(int id) {
-        for (RatSighting r : ratSightingList) {
-            if (r.getKey() == id) {
-                return r;
-            }
-        }
-        return null;
-    }
 
     /**
      * saves rat data to a txt file
