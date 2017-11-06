@@ -1,20 +1,13 @@
 package com.example.sean.ratapp.controllers;
 
-import com.example.sean.ratapp.R;
-import com.example.sean.ratapp.model.RatDataReader;
-import com.example.sean.ratapp.model.RatSighting;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import java.io.InputStream;
+import com.example.sean.ratapp.R;
+import com.example.sean.ratapp.model.RatDataReader;
+import com.example.sean.ratapp.model.RatSighting;
+
 import java.util.ArrayList;
 
 

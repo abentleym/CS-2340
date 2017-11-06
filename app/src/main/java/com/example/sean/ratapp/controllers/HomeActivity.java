@@ -1,18 +1,13 @@
 package com.example.sean.ratapp.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
-import android.content.Intent;
-
-import com.example.sean.ratapp.model.Model;
-import com.example.sean.ratapp.model.User;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
+import android.widget.Button;
 
 import com.example.sean.ratapp.R;
+import com.example.sean.ratapp.model.Model;
 
 import java.io.File;
 

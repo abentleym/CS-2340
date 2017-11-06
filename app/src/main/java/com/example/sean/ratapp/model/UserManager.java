@@ -1,16 +1,6 @@
 package com.example.sean.ratapp.model;
 
-import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.HashMap;
-import org.json.JSONArray;
-import org.json.JSONObject;
 /**
  * Created by Sean on 10/1/2017.
  */
@@ -82,6 +72,11 @@ public class UserManager {
         }
     }
 
+    /**
+     * getter for user object
+     * @param username username instance data of user
+     * @return User associated with the username passed in
+     */
     public static User getUser(String username) {
         return _user_hash_map.get(username);
     }

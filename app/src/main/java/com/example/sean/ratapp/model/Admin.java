@@ -1,6 +1,5 @@
 package com.example.sean.ratapp.model;
 
-import java.io.Serializable;
 
 /**
  * Created by jfahe on 10/2/2017.

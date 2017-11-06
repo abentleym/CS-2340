@@ -1,6 +1,5 @@
 package com.example.sean.ratapp.model;
 
-import java.io.PrintWriter;
 import java.io.Serializable;
 
 
