@@ -29,10 +29,6 @@ public class User implements Serializable{
         _loggedIn = true;
     }
 
-    public String getUsername() {
-        return _userName;
-    }
-
     public String getPassword() {
         return _userPassword;
     }
