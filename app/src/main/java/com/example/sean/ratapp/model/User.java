@@ -23,14 +23,7 @@ public class User implements Serializable{
         _userName = "user";
     }
 
-    public Boolean logIn(String name, String password) {
-        if (name.equals(_userName) && password.equals(_userPassword)) {
-            _loggedIn = true;
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 
     public void logIn() {
         _loggedIn = true;
@@ -42,10 +35,6 @@ public class User implements Serializable{
 
     public String getPassword() {
         return _userPassword;
-    }
-
-    public void logOut() {
-        _loggedIn = false;
     }
 
     public String toString() {
