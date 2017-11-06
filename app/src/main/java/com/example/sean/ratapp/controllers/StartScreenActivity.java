@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.RatDataReader;
-
 import java.io.File;
 import java.io.InputStream;
 

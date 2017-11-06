@@ -10,14 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
-
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.RatDataReader;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by jfahe on 10/8/2017.
@@ -54,21 +49,14 @@ public class RatSightingListActivity extends AppCompatActivity implements DatePi
         if (!startDateSet) {
             dpd = new DatePickerDialog(this, this, 2015, 8, 4);
         } else {
-            DateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
-            int month = 9;
-            int day = 0;
-            int year = 2015;
-            try {
-                Date d = dateFormat.parse(startDateString);
-                month = Integer.parseInt(startDateString.substring(0, 2));
-                day = Integer.parseInt(startDateString.substring(3, 5));
-                year = Integer.parseInt(startDateString.substring(6, 10));
-            } catch (ParseException e) {
-                System.out.println("error parsing date");
-            }
+            int month = Integer.parseInt(startDateString.substring(0, 2));
+            int day = Integer.parseInt(startDateString.substring(3, 5));
+            int year = Integer.parseInt(startDateString.substring(6, 10));
+
+
             dpd = new DatePickerDialog(this, this, year, month, day);
         }
-        ((Button) findViewById(R.id.pickDateButton))
+        (findViewById(R.id.pickDateButton))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -115,11 +103,5 @@ public class RatSightingListActivity extends AppCompatActivity implements DatePi
         }
     }
 
-    public String getStartDate() {
-        return startDateString;
-    }
 
-    public String getEndDate() {
-        return endDateString;
-    }
 }
