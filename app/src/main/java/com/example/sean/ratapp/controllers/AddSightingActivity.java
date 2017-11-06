@@ -34,6 +34,7 @@ public class AddSightingActivity extends AppCompatActivity {
     private Model model = Model.INSTANCE;
     private File file;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sighting);

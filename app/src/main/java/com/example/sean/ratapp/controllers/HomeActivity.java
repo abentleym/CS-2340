@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.sean.ratapp.R;
-import com.example.sean.ratapp.model.Model;
-
-import java.io.File;
 
 /**
  * Created by jfahe on 9/23/2017.
@@ -19,10 +16,8 @@ public class HomeActivity extends AppCompatActivity {
     private Button logOutButton;
     private Button searchSighting;
     private Button addSighting;
-    private Model model = Model.INSTANCE;
-    private File file;
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
