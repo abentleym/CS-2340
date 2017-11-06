@@ -13,7 +13,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,7 +71,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         // Find the first rat entry past the start date
         boolean greaterDateFound = false;
         int start = 0;
-        int i = 0;
+        int i;
         String testDateString;
         for (i = 0; i < ratDataArray.size() && !greaterDateFound; i++) {
             testDateString = ratDataArray.get(i).getDate();
@@ -129,8 +128,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             }
             if (testDate.after(startDate) && testDate.before(endDate)) {
                 badSolution.add(ratDataArray.get(z));
-                greaterDateFound = true;
-
                 System.out.println("Found between date: " + testEndDateString);
             }
         }
@@ -142,13 +139,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     sighting.getLongitude())).title("Sighting ID: " + sighting.getKey()));
 
         }
-        /*for (; start < end; start++) {
-            RatSighting sighting = ratDataArray.get(start);
-            gMap.addMarker(new MarkerOptions().position(new LatLng(sighting.getLatitude(),
-                    sighting.getLongitude())).title("Sighting ID: " + sighting.getKey()));
-        }*/
 
-        // Add a marker in New York, and move the camera.
         LatLng ny = new LatLng(40, -74);
         gMap.addMarker(new MarkerOptions().position(ny).title("Marker in New York"));
         gMap.moveCamera(CameraUpdateFactory.newLatLng(ny));

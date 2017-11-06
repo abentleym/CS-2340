@@ -40,8 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
     private String _pass_word;
     private CheckBox _admin;
     private Button _back;
-    private File file;
-    private Model model = Model.INSTANCE;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,10 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             for(String key : allUsers.keySet()) {
                 try {
-                    JSONObject singleUser = new JSONObject();
-                    User user = allUsers.get(key);/*
-                    singleUser.put("Username", user.getUsername());
-                    singleUser.put("Password", user.getPassword());*/
+                    User user = allUsers.get(key);
                     usersObject.put(key, user.getPassword());
                 } catch (JSONException e) {
                     System.out.println("Error saving user into JSON object");

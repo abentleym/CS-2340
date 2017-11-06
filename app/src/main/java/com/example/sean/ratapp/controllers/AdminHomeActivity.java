@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.sean.ratapp.R;
-import com.example.sean.ratapp.model.Model;
-
-import java.io.File;
 
 /**
  * Created by jfahe on 10/4/2017.
@@ -19,8 +16,6 @@ public class AdminHomeActivity extends AppCompatActivity {
     private Button logOutButton;
     private Button searchSighting;
     private Button addSighting;
-    private Model model = Model.INSTANCE;
-    private File file;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +29,8 @@ public class AdminHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent logoutattempt = new Intent(AdminHomeActivity.this, StartScreenActivity.class);
-                startActivity(logoutattempt);
+                Intent logoutAttempt = new Intent(AdminHomeActivity.this, StartScreenActivity.class);
+                startActivity(logoutAttempt);
             }
         });
 
