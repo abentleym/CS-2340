@@ -46,11 +46,10 @@ public class LogginginActivity extends AppCompatActivity {
 
                 // if the user has registered and is in the hash map, check login information.
                 if (UserManager.loginUser(_user_name, _pass_word)) {
+                    finish();
                     if (UserManager.getUser(_user_name).isAdmin()) {
-                        finish();
                         startActivity(new Intent(LogginginActivity.this, AdminHomeActivity.class));
                     } else {
-                        finish();
                         startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
                     }
                 } else {
