@@ -81,13 +81,22 @@ public class RangeGraphActivity extends AppCompatActivity {//implements DatePick
         //convert arraylist to array bc the API will only accept an array
         DataPoint[] pointsarray = dataPoints.toArray(new DataPoint[dataPoints.size()]);
 
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+       // graph.getViewport().setScrollable(true); // enables horizontal scrolling
+        //graph.getViewport().setScrollableY(true); // enables vertical scrolling
+       // graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
+       // graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date (Year)");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Number of Sightings");
 
         LineGraphSeries<DataPoint> pointseries = new LineGraphSeries<>(pointsarray);
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+
         graph.addSeries(pointseries);
         graph.getGridLabelRenderer().setHumanRounding(false);
         graph.setTitle("Historical Rat Data");
-        
+
+
+
 
 
 
