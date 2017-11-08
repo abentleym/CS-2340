@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.RatDataReader;
@@ -18,6 +20,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -25,7 +29,7 @@ import java.util.LinkedHashMap;
  * Created by Alex on 11/7/2017.
  */
 
-public class RangeGraphActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class RangeGraphActivity extends AppCompatActivity {//implements DatePickerDialog.OnDateSetListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +37,7 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
 
         // TODO: program button in layout to bring up another DatePickerDialog to specify an end
         // date for the range
-        final DatePickerDialog dpd;
+        //final DatePickerDialog dpd;
 
         RatDataReader rdr = new RatDataReader();
         // Get an ArrayList of all the sightings
@@ -43,43 +47,91 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
         // HashMap: key = string representing date in format mm/yyyy
         //          value = number of sightings in that month
         HashMap<String, Integer> datesInt = new LinkedHashMap<>();
+        // HashMap: key = Date object with month and year fields set, and date to 0
+        //          value = number of rat sightings during a date
+        HashMap<Date, Integer> dateDataPoints = new LinkedHashMap<>();
 
-        // for each RatSighting, get the Date and add it to ArrayList dates
-        for (RatSighting sight : sightings) {
-            dates.add(sight.getDate());
-        }
-
-        // For each Date in ArrayList dates:
-        for (String date : dates) {
-            // extract the month and year from the date to use as a key
-            String key = date.substring(0,3) + date.substring(6);
-
-            // if the hashmap already contains the key, then increment the value, and update the
-            // value mapped to that key
-            if (datesInt.containsKey(key)) {
-                int value = datesInt.get(key);
-                value++;
-                datesInt.remove(key);
-                datesInt.put(key, value);
-            } else { // if key is new then add to the hashmap with starting value of 1
-                datesInt.put(key, 1);
+        try {
+            // for each RatSighting, get the Date and add it to ArrayList dates
+            for (RatSighting sight : sightings) {
+                dates.add(sight.getDate());
             }
+        } catch (Exception e) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Could not add date strings to ArrayList dates",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
-                // DataPoint(x, y)
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
+        try {
+            // For each Date in ArrayList dates:
+            for (String date : dates) {
+                // extract the month and year from the date to use as a key
+                String key = date.substring(0, 3) + date.substring(6);
 
-        graph.addSeries(series);
+                // if the hashmap already contains the key, then increment the value, and update the
+                // value mapped to that key
+                if (datesInt.containsKey(key)) {
+                    int value = datesInt.get(key);
+                    value++;
+                    datesInt.remove(key);
+                    datesInt.put(key, value);
+                } else { // if key is new then add to the hashmap with starting value of 1
+                    datesInt.put(key, 1);
+                }
+            }
+        } catch (Exception e) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Could not load string dates with sighting count into HashMap datesInt",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+
+        try {
+            for (String date : datesInt.keySet()) {
+                int numRatSightings = datesInt.get(date);
+                Calendar calendar = Calendar.getInstance();
+                int month = Integer.valueOf(date.substring(0, 2));
+                int year = Integer.valueOf(date.substring(2));
+                calendar.set(year, month, 1);
+                Date dateData = calendar.getTime();
+
+                dateDataPoints.put(dateData, numRatSightings);
+            }
+        } catch (Exception e) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Could not load Dates as data points into HashMap dateDataPoints",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+
+        try {
+            DataPoint[] dataPoints = new DataPoint[dateDataPoints.size()];
+            int index = 0;
+            for (Date dateDataPoint : dateDataPoints.keySet()) {
+                dataPoints[index] = new DataPoint(dateDataPoint, dateDataPoints.get(dateDataPoint));
+                index++;
+            }
+
+            GraphView graph = (GraphView) findViewById(R.id.graph);
+            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+
+            graph.addSeries(series);
+            //graph.setTitle("Rat Sightings through Time");
+        } catch (Exception e) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Could not add DateDataPoints into final array dataPoints for Graph usage",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+
     }
 
     // for use with the DatePickerDialog
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int day) { }
+    //@Override
+    //public void onDateSet(DatePicker view, int year, int month, int day) { }
 }
