@@ -10,6 +10,12 @@
         android:layout_height="wrap_content"
         android:text="What's the earliest date to search for?" />
 
+    <Button
+        android:id="@+id/displayGraphScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Display Graph" />
+
     <com.google.android.gms.maps.MapView
         android:id="@+id/gmap"
         android:layout_width="match_parent"
