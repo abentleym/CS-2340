@@ -1,31 +1,33 @@
 package com.example.sean.ratapp.controllers;
 
 import android.app.DatePickerDialog;
+//import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import android.graphics.Color;
-import android.view.Gravity;
-import android.widget.ArrayAdapter;
+//import android.graphics.Color;
+//import android.view.Gravity;
+//import android.widget.ArrayAdapter;
+//import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.RatDataReader;
 import com.example.sean.ratapp.model.RatSighting;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.LegendRenderer;
-import com.jjoe64.graphview.series.BarGraphSeries;
+//import com.jjoe64.graphview.LegendRenderer;
+//import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+//import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
+//import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+//import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,11 @@ import java.util.Map;
  * Created by Alex on 11/7/2017.
  */
 
-public class RangeGraphActivity extends AppCompatActivity {//implements DatePickerDialog.OnDateSetListener {
+public class RangeGraphActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+    boolean startDateSet = false;
+    int startdate;
+    int enddate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +47,10 @@ public class RangeGraphActivity extends AppCompatActivity {//implements DatePick
 
         // TODO: program button in layout to bring up another DatePickerDialog to specify an end
         // date for the range
-        //final DatePickerDialog dpd;
+        final DatePickerDialog dpdStart = new DatePickerDialog(this, this, 2015, 1, 1);
+        dpdStart.show();
+        final DatePickerDialog dpdEnd = new DatePickerDialog(this, this, 2015, 1, 1);
+        dpdEnd.show();
 
         RatDataReader rdr = new RatDataReader();
        //load in rat data
@@ -82,16 +91,16 @@ public class RangeGraphActivity extends AppCompatActivity {//implements DatePick
         DataPoint[] pointsarray = dataPoints.toArray(new DataPoint[dataPoints.size()]);
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-       // graph.getViewport().setScrollable(true); // enables horizontal scrolling
-        //graph.getViewport().setScrollableY(true); // enables vertical scrolling
+        graph.getViewport().setScrollable(true); // enables horizontal scrolling
+        graph.getViewport().setScrollableY(true); // enables vertical scrolling
        // graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
        // graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date (Year)");
-        graph.getGridLabelRenderer().setVerticalAxisTitle("Number of Sightings");
 
         LineGraphSeries<DataPoint> pointseries = new LineGraphSeries<>(pointsarray);
 
         graph.addSeries(pointseries);
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date (Year)");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Number of Sightings");
         graph.getGridLabelRenderer().setHumanRounding(false);
         graph.setTitle("Historical Rat Data");
 
@@ -192,11 +201,19 @@ public class RangeGraphActivity extends AppCompatActivity {//implements DatePick
         }
 
     }
+*/
+
+    }
 
     // for use with the DatePickerDialog
-    //@Override
-    //public void onDateSet(DatePicker view, int year, int month, int day) { }
-}
-**/
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+        if (!startDateSet) {
+            startdate = year + month;
+            startDateSet = true;
+        } else {
+            enddate = year + month;
+            startDateSet = false;
+        }
     }
 }
