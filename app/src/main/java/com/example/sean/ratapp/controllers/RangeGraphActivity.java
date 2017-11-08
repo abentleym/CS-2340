@@ -21,9 +21,13 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Alex on 11/7/2017.
@@ -39,6 +43,55 @@ public class RangeGraphActivity extends AppCompatActivity {//implements DatePick
         // date for the range
         //final DatePickerDialog dpd;
 
+        RatDataReader rdr = new RatDataReader();
+       //load in rat data
+        ArrayList<RatSighting> sightings = rdr.getRatDataArray();
+        // sort data based on year (as an int)
+        Collections.sort(sightings, new Comparator<RatSighting>() {
+                    @Override
+                    public int compare(RatSighting r1, RatSighting r2) {
+                        return r1.getYear() - r2.getYear();
+                    }
+                });
+        //establish max and min years for graphing purposes
+        int minyear = sightings.get(0).getYear();
+        int maxyear = sightings.get(sightings.size()-1).getYear();
+
+        Map<Integer, Integer> points = new HashMap<>();
+
+        //adds sightings to hashmap with value of 1. For each recurrence of the year increases the value by 1
+        for(RatSighting r: sightings){
+            if(points.containsKey(r.getYear())){
+                points.put(r.getYear(), points.get(r.getYear()) + 1);
+            } else {
+                points.put(r.getYear(),1);
+            }
+        }
+
+        List<DataPoint> dataPoints = new ArrayList<>();
+
+        //cycle through hashmap and create new data point for each KV pair
+            //with x coordinate being the key (year) and y coordinate
+                //being the value (number of occurrences)
+        for(Map.Entry<Integer,Integer> p : points.entrySet()){
+            DataPoint x = new DataPoint( p.getKey(), p.getValue());
+            dataPoints.add(x);
+        }
+
+        //convert arraylist to array bc the API will only accept an array
+        DataPoint[] pointsarray = dataPoints.toArray(new DataPoint[dataPoints.size()]);
+
+
+        LineGraphSeries<DataPoint> pointseries = new LineGraphSeries<>(pointsarray);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        graph.addSeries(pointseries);
+        graph.getGridLabelRenderer().setHumanRounding(false);
+        graph.setTitle("Historical Rat Data");
+        
+
+
+
+/**
         RatDataReader rdr = new RatDataReader();
         // Get an ArrayList of all the sightings
         ArrayList<RatSighting> sightings = rdr.getRatDataArray();
@@ -134,4 +187,7 @@ public class RangeGraphActivity extends AppCompatActivity {//implements DatePick
     // for use with the DatePickerDialog
     //@Override
     //public void onDateSet(DatePicker view, int year, int month, int day) { }
+}
+**/
+    }
 }

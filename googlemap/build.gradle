@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.1"
 
     defaultConfig {
-        applicationId "com.example.sean.ratapp.controllers.RatSightingDetails"
+        applicationId "com.example.sean.ratapp"
         minSdkVersion 25
         targetSdkVersion 25
         versionCode 1

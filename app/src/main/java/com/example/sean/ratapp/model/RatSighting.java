@@ -19,8 +19,8 @@ public class RatSighting {
     private String city;
     private double latitude;
     private double longitude;
-
-    private  String createdDate;
+    private int year;
+    private String createdDate;
     private String borough;
 
 
@@ -35,6 +35,7 @@ public class RatSighting {
         this.latitude = latitude;
         this.createdDate = createdDate;
         this.borough = borough;
+        this.year =  Integer.parseInt(createdDate.substring(6,10));
     }
 
     //constructor used for adding rat sightings where uniqueId creates id
@@ -80,6 +81,10 @@ public class RatSighting {
         System.out.println("Student saving student: " + key);
         writer.println(key + "\t" + createdDate + "\t" + locationType + "\t" + zip + "\t" + address
         + "\t" + city + "\t" + borough + "\t" + latitude + "\t" + longitude);
+    }
+
+    public int getYear() {
+        return year;
     }
 
     /**
