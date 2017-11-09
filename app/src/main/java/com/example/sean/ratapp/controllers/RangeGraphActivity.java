@@ -28,6 +28,7 @@ import java.util.Comparator;
 //import java.util.Date;
 import java.util.HashMap;
 //import java.util.LinkedHashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,8 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
 
         RatDataReader rdr = new RatDataReader();
        //load in rat data
-        ArrayList<RatSighting> sightings = rdr.getRatDataArray();
+        ArrayList<RatSighting> sightings = rdr.getRatDataArray(); // this is correct
+
         // sort data based on year (as an int)
         Collections.sort(sightings, new Comparator<RatSighting>() {
                     @Override
@@ -66,14 +68,25 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
         int minyear = sightings.get(0).getYear();
         int maxyear = sightings.get(sightings.size()-1).getYear();
 
+        System.out.println("Rat data length: " + sightings.size() + " FIrst entry at: " + minyear + " last entry at: " + maxyear);
         Map<Integer, Integer> points = new HashMap<>();
 
         //adds sightings to hashmap with value of 1. For each recurrence of the year increases the value by 1
+
         for(RatSighting r: sightings){
-            if(points.containsKey(r.getYear())){
-                points.put(r.getYear(), points.get(r.getYear()) + 1);
+            int yearMonth;
+            if (r.getMonth() < 10) {
+                yearMonth = Integer.parseInt(r.getYear() + "0" + r.getMonth());
             } else {
-                points.put(r.getYear(),1);
+                yearMonth = Integer.parseInt(r.getYear() + "" + r.getMonth());
+            }
+
+            if(points.containsKey(yearMonth)){
+                System.out.println("Old point: " + yearMonth);
+                points.put(yearMonth, points.get(yearMonth) + 1);
+            } else {
+                points.put(yearMonth,1);
+                System.out.println("New point: " + yearMonth);
             }
         }
 
@@ -82,11 +95,14 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
         //cycle through hashmap and create new data point for each KV pair
             //with x coordinate being the key (year) and y coordinate
                 //being the value (number of occurrences)
+        int numPoints  =0;
+
         for(Map.Entry<Integer,Integer> p : points.entrySet()){
             DataPoint x = new DataPoint( p.getKey(), p.getValue());
             dataPoints.add(x);
+            numPoints++;
         }
-
+        System.out.println("Num data points added: " + numPoints);
         //convert arraylist to array bc the API will only accept an array
         DataPoint[] pointsarray = dataPoints.toArray(new DataPoint[dataPoints.size()]);
 
