@@ -30,6 +30,7 @@
         <activity android:name=".controllers.RatSightingDetails" />
         <activity android:name=".controllers.AddSightingActivity" />
         <activity android:name=".controllers.MapActivity" />
+        <activity android:name=".controllers.RangeGraphActivity" />
     </application>
 
 </manifest>

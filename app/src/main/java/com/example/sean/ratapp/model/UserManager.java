@@ -7,10 +7,6 @@ import java.util.HashMap;
 
 public class UserManager {
     public static HashMap<String, User> _user_hash_map = new HashMap<>(10);
-
-
-
-
     /**
      *
      * @param username the name inputted by a user

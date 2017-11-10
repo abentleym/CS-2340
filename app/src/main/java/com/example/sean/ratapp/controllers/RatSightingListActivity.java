@@ -56,11 +56,22 @@ public class RatSightingListActivity extends AppCompatActivity implements DatePi
 
             dpd = new DatePickerDialog(this, this, year, month, day);
         }
+
         (findViewById(R.id.pickDateButton))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dpd.show();
+                    }
+                });
+
+        (findViewById(R.id.displayGraphScreen))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                        startActivity(new Intent(RatSightingListActivity.this,
+                                                 RangeGraphActivity.class));
                     }
                 });
     }
