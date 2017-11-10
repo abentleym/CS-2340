@@ -48,9 +48,10 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
 
         // TODO: program button in layout to bring up another DatePickerDialog to specify an end
         // date for the range
-        final DatePickerDialog dpdStart = new DatePickerDialog(this, this, 2015, 1, 1);
+        final DatePickerDialog dpdStart = new DatePickerDialog(this, this, 2015, 0, 1);
         dpdStart.show();
-        final DatePickerDialog dpdEnd = new DatePickerDialog(this, this, 2015, 1, 1);
+        final DatePickerDialog dpdEnd = new DatePickerDialog(this, this, 2015, 0, 1);
+
         dpdEnd.show();
 
         RatDataReader rdr = new RatDataReader();
@@ -61,7 +62,7 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
         Collections.sort(sightings, new Comparator<RatSighting>() {
                     @Override
                     public int compare(RatSighting r1, RatSighting r2) {
-                        return r1.getYear() - r2.getYear();
+                        return r2.getYear() - r1.getYear();
                     }
                 });
         //establish max and min years for graphing purposes
@@ -98,7 +99,7 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
         int numPoints  =0;
 
         for(Map.Entry<Integer,Integer> p : points.entrySet()){
-            DataPoint x = new DataPoint( p.getKey(), p.getValue());
+            DataPoint x = new DataPoint( (p.getKey() / 100), p.getValue());
             dataPoints.add(x);
             numPoints++;
         }
