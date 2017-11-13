@@ -63,5 +63,12 @@ public class UserManager {
         return _user_hash_map.get(username);
     }
 
+    /**
+     * clears user hash map, used for testing
+     */
+    public static void clear() {
+        _user_hash_map.clear();
+    }
+
 
 }
