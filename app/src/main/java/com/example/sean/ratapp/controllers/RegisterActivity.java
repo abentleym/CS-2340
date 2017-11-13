@@ -32,21 +32,20 @@ import java.util.Iterator;
  * Created by jfahe on 9/29/2017.
  */
 
+@SuppressWarnings("ALL")
 public class RegisterActivity extends AppCompatActivity {
     private EditText _userName;
     private EditText _password;
-    private Button _register;
     private String _user_name;
     private String _pass_word;
     private CheckBox _admin;
-    private Button _back;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        _register = (Button) findViewById(R.id.registerBtn);
-        _back = (Button) findViewById(R.id.cancel);
+        Button _register = (Button) findViewById(R.id.registerBtn);
+        Button _back = (Button) findViewById(R.id.cancel);
         _userName = (EditText) findViewById(R.id.userNameText);
         _password = (EditText) findViewById(R.id.passwordText);
         _admin = (CheckBox) findViewById(R.id.admin);
@@ -102,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
      * @param allUsers the hashmap containing all registered users, stored in UserManager.
      * @return returns true if file save was successful false if file cant be found
      */
-    public boolean saveUserText(HashMap<String, User> allUsers) {
+    private void saveUserText(HashMap<String, User> allUsers) {
 
         File file = new File(getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
 
@@ -132,17 +131,15 @@ public class RegisterActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.d("model", "Error opening the text file for save!");
-            return false;
         }
 
-        return true;
     }
 
     /**
      * @param file the file containing all the JSON representatives of Users
      * @return true if loading was successful
      */
-    public static boolean loadUsersFromJSON(File file) {
+    public static void loadUsersFromJSON(File file) {
 
         try {
             //make an input object for reading
@@ -179,9 +176,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Log.e("ModelSingleton", "Failed to open text file for loading!");
-            return false;
         }
-        return true;
 
     }
 }

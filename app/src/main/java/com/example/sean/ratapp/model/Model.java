@@ -12,10 +12,11 @@ import java.io.PrintWriter;
  * Created by jfahe on 10/6/2017.
  */
 
+@SuppressWarnings("ALL")
 public class Model {
     public static final Model INSTANCE = new Model();
 
-    private RatDataReader rdr = new RatDataReader();
+    private final RatDataReader rdr = new RatDataReader();
 
     public final static String DEFAULT_RATTEXT_FILE_NAME = "ratdata.txt"; //used for rat data
     public final static String DEFAULT_USERTEXT_FILE_NAME = "user.txt";
@@ -25,7 +26,7 @@ public class Model {
      * @param file the name of the txt file saved
      * @return returns true if file save was successful false if file cant be found
      */
-    public boolean saveRatText(File file) {
+    public void saveRatText(File file) {
         System.out.println("Saving as a text file");
         try {
             PrintWriter pw = new PrintWriter(file);
@@ -34,10 +35,8 @@ public class Model {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.d("model", "Error opening the text file for save!");
-            return false;
         }
 
-        return true;
     }
 
     /**
@@ -45,7 +44,7 @@ public class Model {
      * @param file file name of loaded rat data
      * @return true if successfull false if file not found
      */
-    public boolean loadRatText(File file) {
+    public void loadRatText(File file) {
         try {
             //make an input object for reading
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -53,9 +52,7 @@ public class Model {
 
         } catch (FileNotFoundException e) {
             Log.e("ModelSingleton", "Failed to open text file for loading!");
-            return false;
         }
-        return true;
     }
 
 }

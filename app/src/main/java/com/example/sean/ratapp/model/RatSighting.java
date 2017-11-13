@@ -1,6 +1,7 @@
 package com.example.sean.ratapp.model;
 
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import java.io.PrintWriter;
 import java.util.Random;
@@ -11,18 +12,19 @@ import static java.lang.Integer.parseInt;
  * Created by jfahe on 10/6/2017.
  */
 
+@SuppressWarnings("ALL")
 public class RatSighting {
-    private String locationType;
-    private int key;
-    private int zip;
-    private String address;
-    private String city;
-    private double latitude;
-    private double longitude;
-    private int year;
-    private int month;
-    private String createdDate;
-    private String borough;
+    private final String locationType;
+    private final int key;
+    private final int zip;
+    private final String address;
+    private final String city;
+    private final double latitude;
+    private final double longitude;
+    private final int year;
+    private final int month;
+    private final String createdDate;
+    private final String borough;
 
 
     public RatSighting(int key, String createdDate, String locationType, int zip,
@@ -62,7 +64,7 @@ public class RatSighting {
      * method used to generate random id number
      * @return rand id number
      */
-    public static int uniqueId() {
+    private static int uniqueId() {
         Random rand = new Random();
         int id = rand.nextInt(100);
         id = id * rand.nextInt(50);
@@ -95,15 +97,15 @@ public class RatSighting {
      * @param line line entered to be read in
      * @return rat sighting created from reading line
      */
+    @SuppressLint("Assert")
     public static RatSighting parseEntry(String line) {
         assert line != null;
         String[] tokens = line.split("\t");
         assert tokens.length == 9;
         try {
-            RatSighting s = new RatSighting(parseInt(tokens[0]), tokens[1], tokens[2],
+            return new RatSighting(parseInt(tokens[0]), tokens[1], tokens[2],
                     parseInt(tokens[3]), tokens[4], tokens[5], tokens[6], parseDouble(tokens[7]),
                     parseDouble(tokens[8]));
-            return s;
         } catch (Exception e) {
             Log.e("Error", "Bad sighting save");
             return null;

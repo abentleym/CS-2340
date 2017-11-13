@@ -3,7 +3,6 @@ package com.example.sean.ratapp.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.Model;
@@ -13,24 +12,20 @@ import java.io.InputStream;
 
 public class StartScreenActivity extends AppCompatActivity {
 
-    private Button logInButton;
-    private Button registerButton;
-    private File ratFile;
-    private File userFile;
-    private Model model = Model.INSTANCE;
+    private final Model model = Model.INSTANCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startscreen);
 
-        logInButton = (Button) findViewById(R.id.loginButton);
-        registerButton = (Button) findViewById(R.id.registerButton);
+        Button logInButton = findViewById(R.id.loginButton);
+        Button registerButton = findViewById(R.id.registerButton);
 
         RatDataReader rdr = new RatDataReader();
 
-        ratFile = new File(this.getFilesDir(), model.DEFAULT_RATTEXT_FILE_NAME);
-        userFile = new File(this.getFilesDir(), model.DEFAULT_USERTEXT_FILE_NAME);
+        File ratFile = new File(this.getFilesDir(), Model.DEFAULT_RATTEXT_FILE_NAME);
+        File userFile = new File(this.getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
         model.loadRatText(ratFile);
         RegisterActivity.loadUsersFromJSON(userFile);
 
@@ -42,22 +37,16 @@ public class StartScreenActivity extends AppCompatActivity {
             rdr.LoadRatData(ins, 800);
             // TODO: For some reason outOfBounds errors occur after around 70 lines.
 
-        logInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                Intent loginattempt = new Intent(StartScreenActivity.this, LogginginActivity.class);
-                startActivity(loginattempt);
-            }
+        logInButton.setOnClickListener(v -> {
+            finish();
+            Intent loginAttempt = new Intent(StartScreenActivity.this, LogginginActivity.class);
+            startActivity(loginAttempt);
         });
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-                finish();
-                Intent registerAttempt = new Intent(StartScreenActivity.this, RegisterActivity.class);
-                startActivity(registerAttempt);
-            }
+        registerButton.setOnClickListener(v -> {
+            finish();
+            Intent registerAttempt = new Intent(StartScreenActivity.this, RegisterActivity.class);
+            startActivity(registerAttempt);
         });
     }
 }

@@ -7,28 +7,21 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.sean.ratapp.R;
-import com.example.sean.ratapp.model.Model;
-
-import java.io.File;
 
 /**
  * Created by jfahe on 10/4/2017.
  */
 
+@SuppressWarnings("ALL")
 public class AdminHomeActivity extends AppCompatActivity {
-    private Button logOutButton;
-    private Button searchSighting;
-    private Button addSighting;
-    private Model model = Model.INSTANCE;
-    private File file;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adminhome);
 
-        logOutButton = (Button) findViewById(R.id.logOut);
-        searchSighting = (Button) findViewById(R.id.searchSighting);
-        addSighting = (Button) findViewById(R.id.addSighting);
+        Button logOutButton = (Button) findViewById(R.id.logOut);
+        Button searchSighting = (Button) findViewById(R.id.searchSighting);
+        Button addSighting = (Button) findViewById(R.id.addSighting);
 
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override

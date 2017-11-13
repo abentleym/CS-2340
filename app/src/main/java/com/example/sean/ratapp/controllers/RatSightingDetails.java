@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * Created by nandanj.gouri on 10/11/17.
  */
 
+@SuppressWarnings("ALL")
 class RatSightingDetails extends AppCompatActivity  {
     private static int selectedsighting;//for getting the item in the list view
 
@@ -23,7 +24,7 @@ class RatSightingDetails extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ratsightingdetails);
         RatDataReader rdr = new RatDataReader();
-        ArrayList<RatSighting> ratadata = rdr.getRatDataArray();
+        ArrayList<RatSighting> ratadata = RatDataReader.getRatDataArray();
         RatSighting selectedratsighting = ratadata.get(selectedsighting);
         TextView textview = (TextView) findViewById(R.id.ratsightingdetails);
         String ratInformation = new String();

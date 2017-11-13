@@ -7,18 +7,17 @@ import java.io.Serializable;
  * Created by jfahe on 9/22/2017.
  */
 
+@SuppressWarnings("ALL")
 public class User implements Serializable{
-    private String _userName; //string of user id
-    private String _userPassword; //string of user password
-    private Boolean _loggedIn; //used to tell if user is logged in
+    private final String _userName; //string of user id
+    private final String _userPassword; //string of user password
 
     public User(String name, String password) {
         _userName = name;
         _userPassword = password;
-        _loggedIn = false; // false upon app start up
     }
 
-    public User() {
+    User() {
         _userPassword = "pass";
         _userName = "user";
     }
@@ -26,7 +25,6 @@ public class User implements Serializable{
 
 
     public void logIn() {
-        _loggedIn = true;
     }
 
     public String getPassword() {

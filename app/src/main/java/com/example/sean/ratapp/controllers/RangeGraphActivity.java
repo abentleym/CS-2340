@@ -16,8 +16,6 @@ import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.RatDataReader;
 import com.example.sean.ratapp.model.RatSighting;
 import com.jjoe64.graphview.GraphView;
-//import com.jjoe64.graphview.LegendRenderer;
-//import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -28,7 +26,6 @@ import java.util.Comparator;
 //import java.util.Date;
 import java.util.HashMap;
 //import java.util.LinkedHashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -36,10 +33,9 @@ import java.util.Map;
  * Created by Alex on 11/7/2017.
  */
 
+@SuppressWarnings("ALL")
 public class RangeGraphActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    boolean startDateSet = false;
-    int startdate;
-    int enddate;
+    private boolean startDateSet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +52,7 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
 
         RatDataReader rdr = new RatDataReader();
        //load in rat data
-        ArrayList<RatSighting> sightings = rdr.getRatDataArray(); // this is correct
+        ArrayList<RatSighting> sightings = RatDataReader.getRatDataArray(); // this is correct
 
         // sort data based on year (as an int)
         Collections.sort(sightings, new Comparator<RatSighting>() {
@@ -226,10 +222,8 @@ public class RangeGraphActivity extends AppCompatActivity implements DatePickerD
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
         if (!startDateSet) {
-            startdate = year + month;
             startDateSet = true;
         } else {
-            enddate = year + month;
             startDateSet = false;
         }
     }

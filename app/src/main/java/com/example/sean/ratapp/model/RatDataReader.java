@@ -9,21 +9,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 
 /**
  * Created by Sean on 10/9/2017.
  */
 
+@SuppressWarnings("ALL")
 public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
 
-    private static ArrayList<RatSighting> ratData = new ArrayList<RatSighting>();
-    private static ArrayList<String> ratDataString = new ArrayList<String>();
+    private static final ArrayList<RatSighting> ratData = new ArrayList<RatSighting>();
+    private static final ArrayList<String> ratDataString = new ArrayList<String>();
 
     // Loads rat sighting data from file and formats into various data structures to return later
     // TODO: right now about three data structures are created from the data in the file, using up

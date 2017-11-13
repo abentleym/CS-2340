@@ -18,6 +18,7 @@ import com.example.sean.ratapp.model.RatDataReader;
  * Created by jfahe on 10/8/2017.
  */
 
+@SuppressWarnings("ALL")
 public class RatSightingListActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     @Override
@@ -76,9 +77,9 @@ public class RatSightingListActivity extends AppCompatActivity implements DatePi
                 });
     }
 
-    boolean startDateSet = false;
-    String startDateString;
-    String endDateString;
+    private boolean startDateSet = false;
+    private String startDateString;
+    private String endDateString;
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {

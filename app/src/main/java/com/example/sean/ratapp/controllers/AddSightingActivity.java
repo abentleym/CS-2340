@@ -20,6 +20,7 @@ import java.io.File;
  * Created by jfahe on 10/13/2017.
  */
 
+@SuppressWarnings("ALL")
 public class AddSightingActivity extends AppCompatActivity {
     private EditText address;
     private EditText city;
@@ -29,9 +30,8 @@ public class AddSightingActivity extends AppCompatActivity {
     private EditText date;
     private EditText latitude;
     private EditText longitude;
-    private Button addSighting;
     private RatDataReader rdr;
-    private Model model = Model.INSTANCE;
+    private final Model model = Model.INSTANCE;
     private File file;
 
     @Override
@@ -49,7 +49,7 @@ public class AddSightingActivity extends AppCompatActivity {
         latitude = (EditText) findViewById(R.id.latitude);
         longitude = (EditText) findViewById(R.id.longitude);
 
-        addSighting = (Button) findViewById(R.id.add);
+        Button addSighting = (Button) findViewById(R.id.add);
 
         rdr = new RatDataReader();
 
@@ -59,17 +59,17 @@ public class AddSightingActivity extends AppCompatActivity {
         addSighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isValid(zip)) {
+                if (isValid(zip)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Invalid ZipCode",
                             Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                } else if (!isValid(latitude)) {
+                } else if (isValid(latitude)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Invalid Latitude",
                             Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                } else if (!isValid(longitude)) {
+                } else if (isValid(longitude)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Invalid Longitude",
                             Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -93,11 +93,7 @@ public class AddSightingActivity extends AppCompatActivity {
         });
     }
 
-    public static boolean isValid(EditText text) {
-        if (text.getText().toString().equals("")) {
-            return false;
-        } else {
-            return true;
-        }
+    private static boolean isValid(EditText text) {
+        return text.getText().toString().equals("");
     }
 }

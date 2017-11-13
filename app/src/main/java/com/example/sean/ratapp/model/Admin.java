@@ -5,9 +5,10 @@ package com.example.sean.ratapp.model;
  * Created by jfahe on 10/2/2017.
  */
 
+@SuppressWarnings("ALL")
 public class Admin extends User {
-    private String _userName;
-    private String _password;
+    private final String _userName;
+    private final String _password;
 
     /**
      *

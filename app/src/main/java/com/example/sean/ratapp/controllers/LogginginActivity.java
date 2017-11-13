@@ -16,12 +16,11 @@ import com.example.sean.ratapp.model.UserManager;
  * Created by jfahe on 9/22/2017.
  */
 
+@SuppressWarnings("ALL")
 public class LogginginActivity extends AppCompatActivity {
 
     private EditText userName;
     private EditText password;
-    private Button logIn;
-    private Button back;
 
     // username and password stored in a String, since they are used in multiple places in the code
     private String _user_name;
@@ -35,8 +34,8 @@ public class LogginginActivity extends AppCompatActivity {
         userName = (EditText) findViewById(R.id.user_name);
         password = (EditText) findViewById(R.id.password);
 
-        logIn = (Button) findViewById(R.id.enter_login);
-        back = (Button) findViewById(R.id.back);
+        Button logIn = (Button) findViewById(R.id.enter_login);
+        Button back = (Button) findViewById(R.id.back);
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,19 +12,17 @@ import com.example.sean.ratapp.R;
  * Created by jfahe on 9/23/2017.
  */
 
+@SuppressWarnings("ALL")
 public class HomeActivity extends AppCompatActivity {
-    private Button logOutButton;
-    private Button searchSighting;
-    private Button addSighting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        logOutButton = (Button) findViewById(R.id.logOut);
-        searchSighting = (Button) findViewById(R.id.searchSighting);
-        addSighting = (Button) findViewById(R.id.addSighting);
+        Button logOutButton = (Button) findViewById(R.id.logOut);
+        Button searchSighting = (Button) findViewById(R.id.searchSighting);
+        Button addSighting = (Button) findViewById(R.id.addSighting);
 
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override

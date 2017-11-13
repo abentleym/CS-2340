@@ -5,8 +5,9 @@ import java.util.HashMap;
  * Created by Sean on 10/1/2017.
  */
 
+@SuppressWarnings("ALL")
 public class UserManager {
-    public static HashMap<String, User> _user_hash_map = new HashMap<>(10);
+    public static final HashMap<String, User> _user_hash_map = new HashMap<>(10);
     /**
      *
      * @param username the name inputted by a user
