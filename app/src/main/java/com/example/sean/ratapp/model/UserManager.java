@@ -63,6 +63,10 @@ public class UserManager {
         return _user_hash_map.get(username);
     }
 
+    public static HashMap<String, User> get_user_hash_map() {
+        return _user_hash_map;
+    }
+
     /**
      * clears user hash map, used for testing
      */
