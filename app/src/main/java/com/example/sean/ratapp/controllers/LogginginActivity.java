@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.sean.ratapp.R;
+import com.example.sean.ratapp.model.User;
 import com.example.sean.ratapp.model.UserManager;
 
 /**
@@ -44,13 +45,27 @@ public class LogginginActivity extends AppCompatActivity {
                 _user_name = userName.getText().toString();
 
                 // if the user has registered and is in the hash map, check login information.
-                if (UserManager.loginUser(_user_name, _pass_word)) {
+                if (UserManager.loginAdmin(_user_name, _pass_word)) {
                     finish();
-                    if (UserManager.getUser(_user_name).isAdmin()) {
-                        startActivity(new Intent(LogginginActivity.this, AdminHomeActivity.class));
-                    } else {
-                        startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
-                    }
+                    startActivity(new Intent(LogginginActivity.this, AdminHomeActivity.class));
+
+                } else if (UserManager.loginUser(_user_name, _pass_word)) {
+
+                    User temp = UserManager.getUser(_user_name);
+
+                    if (!temp.isActive()) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Account Has Been Banned Due To " + temp.getBanStatus(),
+                                Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, -300);
+                        toast.show();
+                    } else if (temp.isActive()) {
+                            finish();
+                            startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
+                        }
+
+                
+
+
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Invalid User information",
                             Toast.LENGTH_LONG);

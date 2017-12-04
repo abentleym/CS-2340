@@ -32,6 +32,7 @@
         <activity android:name=".controllers.AddSightingActivity" />
         <activity android:name=".controllers.MapActivity" />
         <activity android:name=".controllers.RangeGraphActivity" />
+        <activity android:name=".controllers.BanUserActivity" />
     </application>
 
 </manifest>

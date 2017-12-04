@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (_admin.isChecked()) {
                     if (UserManager.addAdmin(_user_name, _pass_word)) {
                         // A new admin has been registered
-                        saveUserText(UserManager._user_hash_map);
+                        saveUserText(UserManager._admin_hash_map);
                         finish();
                         startActivity(new Intent(RegisterActivity.this, AdminHomeActivity.class));
                     } else {

@@ -9,6 +9,7 @@ package com.example.sean.ratapp.model;
 public class Admin extends User {
     private final String _userName;
     private final String _password;
+    private boolean isAdmin;
 
     /**
      *
@@ -18,6 +19,7 @@ public class Admin extends User {
     public Admin(String user, String password) {
         _userName = user;
         _password = password;
+        isAdmin = true;
     }
 
     /**
@@ -47,6 +49,12 @@ public class Admin extends User {
      * Tells whether the user is an admin.
      */
     public boolean isAdmin() {
-        return true;
+        return isAdmin;
     }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+
 }

@@ -8,6 +8,7 @@ import java.util.HashMap;
 @SuppressWarnings("ALL")
 public class UserManager {
     public static final HashMap<String, User> _user_hash_map = new HashMap<>(10);
+    public static final HashMap<String, User> _admin_hash_map = new HashMap<>(10);
     /**
      *
      * @param username the name inputted by a user
@@ -30,11 +31,12 @@ public class UserManager {
      * @return false if an admin with the username already exists, else a new admin is added to the system
      */
     public static boolean addAdmin(String username, String password) {
-        if (_user_hash_map.containsKey(username)) {
+        if (_admin_hash_map.containsKey(username)) {
             return false;
         }
 
-        _user_hash_map.put(username, new Admin(username, password));
+        _admin_hash_map.put(username, new Admin(username, password));
+        _admin_hash_map.get(username).setAdmin(true);
         return true;
     }
 
@@ -47,12 +49,24 @@ public class UserManager {
     public static boolean loginUser(String username, String password) {
 
         if (_user_hash_map.containsKey(username) && password.equals(_user_hash_map.get(username).getPassword())) {
-            _user_hash_map.get(username).logIn();
-            return true;
-        } else {
-            return false;
-        }
+                return true;
+            }
+
+
+        return false;
     }
+
+    public static boolean loginAdmin(String username, String password) {
+
+        if (_admin_hash_map.containsKey(username) && password.equals(_admin_hash_map.get(username).getPassword())) {
+                return true;
+            }
+
+        return false;
+    }
+
+
+
 
     /**
      * getter for user object
