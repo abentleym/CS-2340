@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.sean.ratapp.R;
+import com.example.sean.ratapp.model.Locked;
 import com.example.sean.ratapp.model.User;
 import com.example.sean.ratapp.model.UserManager;
 
@@ -26,6 +27,8 @@ public class LogginginActivity extends AppCompatActivity {
     // username and password stored in a String, since they are used in multiple places in the code
     private String _user_name;
     private String _pass_word;
+    private int _attempts = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,14 @@ public class LogginginActivity extends AppCompatActivity {
         Button logIn = (Button) findViewById(R.id.enter_login);
         Button back = (Button) findViewById(R.id.back);
 
+        if (Locked.getLocked() == true) {
+            logIn.setVisibility(View.GONE);
+            Toast toast = Toast.makeText(getApplicationContext(), "You have been locked out, please try again later.",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER,0,-300);
+            toast.show();
+        }
+
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +57,7 @@ public class LogginginActivity extends AppCompatActivity {
 
                 // if the user has registered and is in the hash map, check login information.
                 if (UserManager.loginAdmin(_user_name, _pass_word)) {
+                    _attempts = 0;
                     finish();
                     startActivity(new Intent(LogginginActivity.this, AdminHomeActivity.class));
 
@@ -59,18 +71,25 @@ public class LogginginActivity extends AppCompatActivity {
                         toast.setGravity(Gravity.CENTER, 0, -300);
                         toast.show();
                     } else if (temp.isActive()) {
+                            _attempts = 0;
                             finish();
                             startActivity(new Intent(LogginginActivity.this, HomeActivity.class));
                         }
-
-                
-
-
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Invalid User information",
-                            Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER,0,-300);
-                    toast.show();
+                    _attempts++;
+                    if (_attempts > 2){
+                        Locked.lock();
+                        Toast toast = Toast.makeText(getApplicationContext(), "Too many invalid attempts, you have been locked out.",
+                                Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER,0,-300);
+                        toast.show();
+                        logIn.setVisibility(View.GONE);
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Invalid User information",
+                                Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, -300);
+                        toast.show();
+                    }
                 }
             }
         });
