@@ -122,8 +122,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             }
             if (testDate.after(startDate) && testDate.before(endDate)) {
                 badSolution.add(ratDataArray.get(z));
-
-                System.out.println("Found between date: " + testEndDateString);
             }
         }
 

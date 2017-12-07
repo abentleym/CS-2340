@@ -99,7 +99,8 @@ public class RatSighting {
      */
     @SuppressLint("Assert")
     public static RatSighting parseEntry(String line) {
-        assert line != null;
+        if (line == null) return null;
+        if (line == "") return null;
         String[] tokens = line.split("\t");
         assert tokens.length == 9;
         try {
@@ -107,7 +108,7 @@ public class RatSighting {
                     parseInt(tokens[3]), tokens[4], tokens[5], tokens[6], parseDouble(tokens[7]),
                     parseDouble(tokens[8]));
         } catch (Exception e) {
-            Log.e("Error", "Bad sighting save");
+            //Log.e("Error", "Bad sighting save");
             return null;
         }
     }

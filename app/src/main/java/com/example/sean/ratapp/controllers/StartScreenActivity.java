@@ -2,22 +2,46 @@ package com.example.sean.ratapp.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.RatDataReader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class StartScreenActivity extends AppCompatActivity {
 
     private final Model model = Model.INSTANCE;
 
+    private static StorageReference userDataRef;
+
+    FirebaseAuth mAuth;
+    File userFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startscreen);
+
+        mAuth = FirebaseAuth.getInstance();
+        userDataRef = FirebaseStorage.getInstance().getReference();
 
         Button logInButton = findViewById(R.id.loginButton);
         Button registerButton = findViewById(R.id.registerButton);
@@ -25,7 +49,14 @@ public class StartScreenActivity extends AppCompatActivity {
         RatDataReader rdr = new RatDataReader();
 
         File ratFile = new File(this.getFilesDir(), Model.DEFAULT_RATTEXT_FILE_NAME);
-        File userFile = new File(this.getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
+
+
+        if (userFile == null) {
+
+            userFile = new File(this.getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
+            System.out.println("Downloading from Firebase failed...");
+        }
+
         model.loadRatText(ratFile);
         RegisterActivity.loadUsersFromJSON(userFile);
 
@@ -48,5 +79,62 @@ public class StartScreenActivity extends AppCompatActivity {
             Intent registerAttempt = new Intent(StartScreenActivity.this, RegisterActivity.class);
             startActivity(registerAttempt);
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        mAuth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success
+                            Log.d("TAG", "signInAnonymously:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            // Access the user data stored in Firebase Storage.
+                            // If it is unsuccessful, it will access the locally stored user data file.
+                            userFile = downloadUsersFromFirebase();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("TAG", "signInAnonymously:failure", task.getException());
+                            Toast.makeText(StartScreenActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        // ...
+                    }
+                });
+    }
+    public static StorageReference getUserStorageRef() {
+        return userDataRef;
+    }
+
+    private File downloadUsersFromFirebase() {
+        System.out.println("Starting download from Firebase...");
+
+
+
+         userFile = new File(this.getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
+         userDataRef.getFile(userFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+             @Override
+             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                 // Successfully downloaded data to local file
+                 // ...
+                 System.out.println("Downloading from Firebase successful!");
+             }
+         }).addOnFailureListener(new OnFailureListener() {@Override
+         public void onFailure(@NonNull Exception exception) {
+             // Handle failed download
+             // ...
+             System.out.println("Downloading from Firebase failed!");
+         }});
+        return userFile;
+
     }
 }

@@ -1,7 +1,9 @@
 package com.example.sean.ratapp.controllers;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,6 +17,11 @@ import com.example.sean.ratapp.R;
 import com.example.sean.ratapp.model.Model;
 import com.example.sean.ratapp.model.User;
 import com.example.sean.ratapp.model.UserManager;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (UserManager.addAdmin(_user_name, _pass_word)) {
                         // A new admin has been registered
                         saveUserText(UserManager._admin_hash_map);
+                        uploadUsersToFirebase();
                         finish();
                         startActivity(new Intent(RegisterActivity.this, AdminHomeActivity.class));
                     } else {
@@ -73,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (UserManager.addUser(_user_name, _pass_word)) {
                         // A new user has been registered
                         saveUserText(UserManager._user_hash_map);
+                        uploadUsersToFirebase();
                         finish();
                         startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                     } else {
@@ -176,6 +185,43 @@ public class RegisterActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             Log.e("ModelSingleton", "Failed to open text file for loading!");
+        }
+
+    }
+
+
+    private void uploadUsersToFirebase() {
+
+        System.out.println("Starting upload to Firebase...");
+
+        Uri file = Uri.fromFile(new File(getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME));
+
+        System.out.println("File URI: " + file.toString());
+        try {
+            StorageReference userRef =  FirebaseStorage.getInstance().getReference().getRoot();
+//                    .child(Model.DEFAULT_USERTEXT_FILE_NAME);
+
+            System.out.println("@@@@@ Point A @@@@@");
+            userRef.putFile(file)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            System.out.println("Uploading to Firebase sucessfull!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+
+                            System.out.println("Uploading to Firebase failed...");
+                        }
+                    });
+        } catch (Exception e) {
+            System.out.println("Caught Storage Exception!");
         }
 
     }
