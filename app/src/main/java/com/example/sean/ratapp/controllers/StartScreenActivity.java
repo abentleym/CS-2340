@@ -1,6 +1,7 @@
 package com.example.sean.ratapp.controllers;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -93,7 +94,7 @@ public class StartScreenActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success
-                            Log.d("TAG", "signInAnonymously:success");
+                            System.out.println("signInAnonymously:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             // Access the user data stored in Firebase Storage.
@@ -101,7 +102,7 @@ public class StartScreenActivity extends AppCompatActivity {
                             userFile = downloadUsersFromFirebase();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInAnonymously:failure", task.getException());
+                            System.out.println("signInAnonymously:failure");
                             Toast.makeText(StartScreenActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
 
@@ -118,10 +119,12 @@ public class StartScreenActivity extends AppCompatActivity {
     private File downloadUsersFromFirebase() {
         System.out.println("Starting download from Firebase...");
 
-
-
          userFile = new File(this.getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
-         userDataRef.getFile(userFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+
+         System.out.println("Download Userfile URI: " + Uri.fromFile(userFile));
+         StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://rat-app-22f3a.appspot.com/user.txt");
+
+         storageReference.getFile(userFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
              @Override
              public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                  // Successfully downloaded data to local file

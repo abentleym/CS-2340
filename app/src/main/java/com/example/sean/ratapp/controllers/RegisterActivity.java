@@ -198,11 +198,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         System.out.println("File URI: " + file.toString());
         try {
-            StorageReference userRef =  FirebaseStorage.getInstance().getReference().getRoot();
-//                    .child(Model.DEFAULT_USERTEXT_FILE_NAME);
+            StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://rat-app-22f3a.appspot.com/user.txt");
 
             System.out.println("@@@@@ Point A @@@@@");
-            userRef.putFile(file)
+            storageReference.putFile(file)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
