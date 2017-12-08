@@ -79,6 +79,8 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
     public void addSighting(RatSighting sighting) {
         ratData.add(0, sighting);
         ratDataString.add(0, sighting.toString());
+
+
     }
 
     @Override
@@ -114,25 +116,38 @@ public class RatDataReader extends AsyncTask<InputStream, Integer, Long> {
      * @param reader the object that reads the file data
      */
     void loadFromText(BufferedReader reader) {
-        System.out.println("Loading Text File");
         ratData.clear();
         ratDataString.clear();
         try {
             String countStr = reader.readLine();
             assert countStr != null;
-            int count = Integer.parseInt(countStr);
 
-            //then read in each user to model
-            for (int i = 0; i < count; ++i) {
-                String line = reader.readLine();
-                RatSighting s = RatSighting.parseEntry(line);
-                if (s != null) {
-                    ratData.add(s);
-                    ratDataString.add(s.toString());
+            try {
+                int count = Integer.parseInt(countStr);
+
+                //then read in each user to model
+                for (int i = 0; i < count; ++i) {
+                    String line = reader.readLine();
+                    RatSighting s = RatSighting.parseEntry(line);
+                    if (s != null) {
+                        ratData.add(s);
+                        ratDataString.add(s.toString());
+                    }
+                }
+            } catch (Exception nfe) {
+                String curLine = reader.readLine();
+                while (curLine != null) {
+
+                    String line = reader.readLine();
+                    RatSighting s = RatSighting.parseEntry(line);
+                    if (s != null) {
+                        ratData.add(s);
+                        ratDataString.add(s.toString());
+                    }
                 }
             }
             reader.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("Done loading text file with " + ratData.size() + " rat sightings");

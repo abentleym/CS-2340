@@ -35,6 +35,7 @@ public class StartScreenActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     File userFile;
+    File ratFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,13 @@ public class StartScreenActivity extends AppCompatActivity {
 
         RatDataReader rdr = new RatDataReader();
 
-        File ratFile = new File(this.getFilesDir(), Model.DEFAULT_RATTEXT_FILE_NAME);
+        ratFile = new File(this.getFilesDir(), Model.DEFAULT_RATTEXT_FILE_NAME);
 
 
         if (userFile == null) {
 
             userFile = new File(this.getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
-            System.out.println("Downloading from Firebase failed...");
+            System.out.println("[users]Downloading from Firebase failed...");
         }
 
         model.loadRatText(ratFile);
@@ -100,6 +101,7 @@ public class StartScreenActivity extends AppCompatActivity {
                             // Access the user data stored in Firebase Storage.
                             // If it is unsuccessful, it will access the locally stored user data file.
                             userFile = downloadUsersFromFirebase();
+                            ratFile = downloadRatSightingsFromFirebase();
                         } else {
                             // If sign in fails, display a message to the user.
                             System.out.println("signInAnonymously:failure");
@@ -119,25 +121,52 @@ public class StartScreenActivity extends AppCompatActivity {
     private File downloadUsersFromFirebase() {
         System.out.println("Starting download from Firebase...");
 
-         userFile = new File(this.getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
+        userFile = new File(this.getFilesDir(), Model.DEFAULT_USERTEXT_FILE_NAME);
 
-         System.out.println("Download Userfile URI: " + Uri.fromFile(userFile));
-         StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://rat-app-22f3a.appspot.com/user.txt");
+        System.out.println("Download Userfile URI: " + Uri.fromFile(userFile));
+        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://rat-app-22f3a.appspot.com/user.txt");
 
-         storageReference.getFile(userFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-             @Override
-             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                 // Successfully downloaded data to local file
-                 // ...
-                 System.out.println("Downloading from Firebase successful!");
-             }
-         }).addOnFailureListener(new OnFailureListener() {@Override
-         public void onFailure(@NonNull Exception exception) {
-             // Handle failed download
-             // ...
-             System.out.println("Downloading from Firebase failed!");
-         }});
+        storageReference.getFile(userFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                // Successfully downloaded data to local file
+                // ...
+                System.out.println("Downloading from Firebase successful!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {@Override
+        public void onFailure(@NonNull Exception exception) {
+            // Handle failed download
+            // ...
+            System.out.println("Downloading from Firebase failed!");
+        }});
         return userFile;
+
+    }
+
+
+    private File downloadRatSightingsFromFirebase() {
+        System.out.println("Starting rat sighting download from Firebase...");
+
+        ratFile = new File(this.getFilesDir(), Model.DEFAULT_RATTEXT_FILE_NAME);
+
+        System.out.println("Download Userfile URI: " + Uri.fromFile(ratFile));
+        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://rat-app-22f3a.appspot.com/ratdata.txt");
+
+        storageReference.getFile(ratFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                // Successfully downloaded data to local file
+                // ...
+                System.out.println("Downloading from Firebase successful!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {@Override
+        public void onFailure(@NonNull Exception exception) {
+            // Handle failed download
+            // ...
+            System.out.println("Downloading from Firebase failed!");
+        }});
+        model.loadRatText(ratFile);
+        return ratFile;
 
     }
 }
